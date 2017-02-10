@@ -1,6 +1,6 @@
 package;
 
-import me.jscott.revolution.PlayState;
+import me.jscott.revolution.MenuState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
@@ -12,6 +12,6 @@ class Main extends Sprite {
 		super();
 
         // Skip the splash screen and go straight to the PlayState
-		addChild(new FlxGame(0, 0, PlayState, 1, 60, 60, true));
+		addChild(new FlxGame(0, 0, MenuState, 1, 60, 60, true));
 	}
 }
