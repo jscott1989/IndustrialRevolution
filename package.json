@@ -12,7 +12,8 @@
     "jquery": "^3.1.1",
     "lodash": "latest",
     "moment": "^2.17.1",
-    "randgen": "^0.1.0"
+    "randgen": "^0.1.0",
+    "random-number": "0.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
