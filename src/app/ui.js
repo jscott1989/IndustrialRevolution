@@ -1,6 +1,7 @@
 import $ from "jQuery"
 import { game } from "./main"
 import { NORMAL_SPEED, FAST_SPEED } from "./game"
+import * as staffTab from './tabs/staff';
 
 // UI State
 var activeTab = "news";
@@ -30,9 +31,11 @@ export const bind = () => {
 
 
     $(".tab").click(function() {
-        activeTab = $(this).data("tab-name");
-        update_tabs();
+        activeTab = $(this).data("tab-name")
+        update_tabs()
     })
+
+    staffTab.bind()
 }
 
 

@@ -68,13 +68,52 @@
 
 .tab_content {
     background: white;
-    width: 750px;
+    width: 900px;
     height: 500px;
     margin-left: 50px;
     margin-top: 50px;
     display: none;
+    padding: 10px;
 
     &.active {
         display: block;
     }
+}
+
+
+.person {
+    .photo {
+        
+    }
+
+    .info {
+        vertical-align:middle;
+        padding-left: 5px;
+        padding-right: 15px;
+    }
+
+    .hire {
+        text-align:center; 
+        vertical-align:middle;
+        padding-left: 2em;
+        // padding-top: 1em;
+    }
+
+    .hire_button {
+        border: 1px solid black;
+        padding: 10px;
+
+        &:hover {
+            color: gray;
+        }
+    }
+}
+
+#hire_table {
+    height: 500px;
+    width: 440px;
+}
+
+.scrollable {
+    overflow: scroll;
 }
