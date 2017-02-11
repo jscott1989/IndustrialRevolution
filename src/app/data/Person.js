@@ -4,7 +4,8 @@ var randomLetter = require('random-letter');
 var rand = require('random-number');
 var pickRandom = require('pick-random');
 
-export function Person(id, name, age, skill) {
+export function Person(id, avatar, name, age, skill) {
+    this.avatar = avatar
     this.id = id
     this.name = name
     this.age = age
@@ -20,8 +21,19 @@ export const generatePerson = () => {
     var name = getName();
     var age = getAge();
     var skill = getSkill();
+    var avatar = getAvatar();
 
-    return new Person(uuid.v4(), name, age, skill)
+    return new Person(uuid.v4(), avatar, name, age, skill)
+}
+
+function getAvatar(){
+	
+	var options = {
+		min: 1,
+		max: 45,
+		integer: true
+	}
+	return rand(options);
 }
 
 function getName(){
