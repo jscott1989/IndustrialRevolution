@@ -2,6 +2,16 @@ import $ from "jQuery"
 import { game } from "./main"
 import { NORMAL_SPEED, FAST_SPEED } from "./game"
 
+// UI State
+var activeTab = "news";
+
+
+export const initialise = () => {
+    update_tabs();
+    bind();
+}
+
+
 /**
  * Establish UI bindings.
  */
@@ -16,6 +26,12 @@ export const bind = () => {
 
     $("#ff").click(() => {
         game.fastforward()
+    })
+
+
+    $(".tab").click(function() {
+        activeTab = $(this).data("tab-name");
+        update_tabs();
     })
 }
 
@@ -39,4 +55,12 @@ export const refresh_time_controls = (speed, isPaused) => {
         $("#play").removeClass("active")
         $("#ff").addClass("active")
     }
+}
+
+
+const update_tabs = () => {
+    $(".tab").removeClass("active");
+    $("#" + activeTab + "tab").addClass("active");
+    $(".tab_content").removeClass("active");
+    $("#tab" + activeTab).addClass("active");
 }

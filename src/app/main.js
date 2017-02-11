@@ -1,6 +1,7 @@
 require("../styles/main.scss")
 import { Game } from "./game"
-import { bind } from "./ui"
-bind();
-export const game = Game();
-game.run();
+import { initialise } from "./ui"
+initialise()
+export const game = Game()
+game.initialise()
+game.run()

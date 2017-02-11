@@ -1,0 +1,4 @@
+To build:
+    npm install
+    webpack build --watch
+    nw src

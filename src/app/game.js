@@ -1,10 +1,12 @@
-const moment = require('moment');
+const moment = require('moment')
+const _ = require('lodash')
 
-export const NORMAL_SPEED = 1000;
-export const FAST_SPEED = 500;
+export const NORMAL_SPEED = 1000
+export const FAST_SPEED = 500
 const startDate = moment(new Date(1670, 0, 1));
 
-import * as ui from './ui';
+import * as ui from './ui'
+import { generatePerson } from "./data/Person"
 
 /**
  * A game encapsulates an entire game state.
@@ -14,12 +16,25 @@ export const Game = () => {
     var isPaused = false;
 
     var time = 0; // Days passed since the start date
+    
+    var availableToHire = [];
+
+    this.initialise = () => {
+        this.generateHires(20)
+        console.log(availableToHire)
+    }
+
+
+    this.generateHires = (num) => {
+        _.each(_.range(num), () => {
+            availableToHire.push(generatePerson());
+        });
+    }
 
     /**
      * This manages the primary game loop
      */
     this.run = () => {
-        console.log(isPaused);
         if (!isPaused) {
             this.tick();
         }
