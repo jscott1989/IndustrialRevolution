@@ -12,7 +12,7 @@ export const update = (researchCompleted) => {
     }).join("");
     $("#completed_research_table > table").html(html);
 
-    var DIR = '/assets/';
+    var DIR = '/assets/tech_images/';
 
 	var nodes = null;
     var edges = [];
