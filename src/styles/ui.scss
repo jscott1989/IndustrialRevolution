@@ -99,7 +99,7 @@
         // padding-top: 1em;
     }
 
-    .hire_button {
+    .hire_button, .fire_button {
         border: 1px solid black;
         padding: 10px;
 
@@ -109,9 +109,14 @@
     }
 }
 
-#hire_table {
+#hire_table, #staff_table {
     height: 500px;
     width: 440px;
+    float: left;
+}
+
+#staff_table {
+    margin-left: 10px;
 }
 
 .scrollable {

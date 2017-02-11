@@ -2,7 +2,6 @@ var uuid = require('uuid');
 
 export function Person(id, name, age, skill, fee, salary) {
     this.id = id
-    this.lala = id
     this.name = name
     this.age = age
     this.skill = skill

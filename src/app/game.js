@@ -72,8 +72,8 @@ export const Game = () => {
 
     this.findByID = (a, id) => {
         for (var b in a) {
-            if (b.id == id) {
-                return b;
+            if (a[b].id == id) {
+                return a[b];
             }
         }
         return null;
@@ -83,6 +83,11 @@ export const Game = () => {
         var matchingPerson = this.findByID(availableToHire, id);
         availableToHire = _.filter(availableToHire, (a) => a.id != id);
         hiredStaff.push(matchingPerson);
+        staffTab.update(availableToHire, hiredStaff)
+    }
+
+    this.fire = (id) => {
+        hiredStaff = _.filter(hiredStaff, (a) => a.id != id);
         staffTab.update(availableToHire, hiredStaff)
     }
 
