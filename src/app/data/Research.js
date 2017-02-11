@@ -1,6 +1,6 @@
 var uuid = require('uuid');
 
-export function Research(id, name, description, cost, optimal_year, prestige_value, financial_value, risk, prerequisites) {
+export function Research(id, name, description, cost, optimal_year, prestige_value, financial_value, risk, prerequisites, completed=false, x=null, y=null) {
     this.id = id
     this.name = name
     this.description = description
@@ -11,8 +11,11 @@ export function Research(id, name, description, cost, optimal_year, prestige_val
     this.risk = risk
     this.prerequisites = prerequisites
 
-    this.completed = false
+    this.completed = completed
     this.date_completed = null
+
+    this.start_x = x
+    this.start_y = y
 
     return this
 }

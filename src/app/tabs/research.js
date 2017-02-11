@@ -7,6 +7,9 @@ var source   = $("#completed-research-template").html()
 var template = Handlebars.compile(source)
 
 export const update = (researchCompleted) => {
+	// https://spreadsheets.google.com/feeds/list/1z2p2Pd5gIS1n--KIc9uSpC-Poa6gUIgJ3S90c-Lf7q8/1/public/basic?alt=json
+
+
     var html = _.map(researchCompleted, (research) => {
         return template(research)
     }).join("");
@@ -38,7 +41,11 @@ export const update = (researchCompleted) => {
       ];*/
 
       nodes = _.map(researchCompleted, (research) => {
-      	  return {id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg'}
+      	  var hidden = !research.completed;
+      	  if(research.start_x != null && research.start_y != null)
+	      	  return {x:research.start_x,y:research.start_y,id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg', hidden: hidden}
+  		  else
+              return {id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg', hidden: hidden}
       });
 
       // create connections between people
@@ -75,7 +82,7 @@ export const update = (researchCompleted) => {
       		edges.push({from: research.id, to: prerequisite})
       	}
       }
-      console.log(edges);
+      //console.log(edges);
 
       // create a network
       var container = document.getElementById('research_tech_tree');
@@ -97,10 +104,28 @@ export const update = (researchCompleted) => {
           color: '#000000'
         },
         physics: {
-        	enabled: false,
+        	enabled: true,
+        },
+        interaction: {
+        	dragNodes: false
+        },
+        layout: {
+        	randomSeed: 15746
         }
       };
       network = new vis.Network(container, data, options);
+
+      //console.log(network.getScale());
+      //network.setSize('100px','100px');
+      //network.focus({nodes:[1,2,3,4,5]});
+      network.moveTo({position: {x:-320, y:-190}});
+      console.log("Seed: "+network.getSeed());
+
+      network.on("click", function (params) {
+        params.event = "[original event]";
+        //document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+        console.log(params);
+    });
 }
 
 export const bind = () => {
