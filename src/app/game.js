@@ -104,15 +104,15 @@ export const Game = () => {
                 main.gameover(prestige)
             })
         } else {
-            _.filter(availableToHire, (h) => {
+            availableToHire = _.filter(availableToHire, (h) => {
                 h.age += 1
                 return h.age <= MAX_AGE
             })
 
-            _.filter(hiredStaff, (h) => {
+            hiredStaff = _.filter(hiredStaff, (h) => {
                 h.age += 1
-                ui.popup(h.name + " has died", "At the grand old age of " + h.age + ", " + h.name + " has died peacefully in their sleep")
                 if (h.age > MAX_AGE) {
+                    ui.popup(h.name + " has died", "At the grand old age of " + h.age + ", " + h.name + " has died peacefully in their sleep")
                     return false
                 }
                 return true

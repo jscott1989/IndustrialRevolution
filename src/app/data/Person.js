@@ -26,14 +26,13 @@ export const generatePerson = () => {
     return new Person(uuid.v4(), avatar, name, age, skill)
 }
 
+var i = 1;
 function getAvatar(){
-	
-	var options = {
-		min: 1,
-		max: 45,
-		integer: true
-	}
-	return rand(options);
+	i = i + 1;
+    if (i > 45) {
+        i= 1;
+    }
+    return i;
 }
 
 function getName(){
