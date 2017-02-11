@@ -1,7 +1,9 @@
 To build:
 	# install requirements
-    npm install
-    npm install nw
+	# move to outer directory
+    npm install -g
+
+    npm install -g nw@0.18.0-sdk
 
     # setup building
     webpack --watch

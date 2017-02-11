@@ -8,6 +8,8 @@ const startDate = moment(new Date(1796, 11, 1));
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
+import * as researchTab from './tabs/research';
+import { generateResearch } from "./data/Research"
 
 /**
  * A game encapsulates an entire game state.
@@ -22,12 +24,16 @@ export const Game = () => {
     var hiredStaff = [];
 
     var age = 20;
+    var researchCompleted = [];
+
     var money = 1000;
     var prestige = 0;
 
     this.initialise = () => {
         this.generateHires(20)
         ui.update_stats(age, money, prestige);
+        this.generateResearch(7)
+        ui.update_stats(money, prestige);
     }
 
 
@@ -36,6 +42,13 @@ export const Game = () => {
             availableToHire.push(generatePerson())
         });
         staffTab.update(availableToHire, hiredStaff)
+    }
+
+    this.generateResearch = (num) => {
+        _.each(_.range(num), () => {
+            researchCompleted.push(generateResearch())
+        });
+        researchTab.update(researchCompleted)
     }
 
     /**
@@ -147,6 +160,15 @@ export const Game = () => {
         availableToHire = _.filter(availableToHire, (s) => Math.random() >= 0.5)
         this.generateHires(Math.floor(Math.random() * 5))
         staffTab.update(availableToHire, hiredStaff)
+    }
+
+
+    this.sell = (id) => {
+        var matchingResearch = this.findByID(researchCompleted, id);
+        //availableToHire = _.filter(availableToHire, (a) => a.id != id);
+        //hiredStaff.push(matchingPerson);
+        //staffTab.update(availableToHire, hiredStaff)
+        alert("Bought "+id.name);
     }
 
     return this;
