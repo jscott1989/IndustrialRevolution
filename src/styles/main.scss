@@ -1,0 +1,27 @@
+@import "reset.css";
+@import "ui.scss";
+@import "font-awesome.css";
+
+@font-face {
+  font-family: 'KongText';
+  src: url('/fonts/kongtext-webfont.woff2') format('woff2'),
+       url('/fonts/kongtext-webfont.woff') format('woff');
+}
+
+body {
+    // Disable selection (more game-like!)
+      -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+    cursor: default;
+    background: black;
+    font-family: 'KongText';
+}
+
+.clear {
+  clear: both;
+}

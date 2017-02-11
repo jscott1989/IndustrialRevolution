@@ -1,0 +1,12 @@
+{
+  "name":"Industrial Revolution",
+  "main":"views/index.html",
+  "window":{
+    "min_width":1024,
+    "max_width":1024,
+    "width":1024,
+    "min_height":768,
+    "max_height":768,
+    "height":768
+  }
+}

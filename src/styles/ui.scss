@@ -1,0 +1,67 @@
+#main {
+    width: 1024px;
+    height: 768px;
+    margin:auto;
+    background:green;
+}
+
+#newsfeed {
+    background:black;
+    width: 1024px;
+    height: 20px;
+    padding: 5px;
+    color: white;
+}
+
+#tabs {
+    margin-top: 10px;
+    float: left;
+    width: 700px;
+    padding-left: 100px;
+}
+
+#tabs > .tab {
+    float: left;
+    margin-left:10px;
+    background: white;
+    border: 1px solid blue;
+
+    &:hover {
+        background: gray;
+    }
+}
+
+#tabs > .tab > .content {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#time {
+    padding-top: 10px;
+    text-align: center;
+}
+
+#timecontrols {
+    position:relative;
+    left: 70px;
+    top: 10px;
+}
+.timecontrol {
+    float: left;
+    margin-left: 10px;
+
+    &:hover {
+        color: gray;
+    }
+
+    &.active {
+        color: red;
+    }
+}
+
+.clickable {
+    cursor: pointer;
+}
