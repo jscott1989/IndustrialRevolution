@@ -21,8 +21,12 @@ export const Game = () => {
     var availableToHire = [];
     var hiredStaff = [];
 
+    var money = 1000;
+    var prestige = 0;
+
     this.initialise = () => {
         this.generateHires(20)
+        ui.update_stats(money, prestige);
     }
 
 
@@ -47,6 +51,25 @@ export const Game = () => {
         time += 1;
         var date = startDate.clone().add(time, 'days')
         ui.update_date(date)
+
+        if (date.get('date') == 1) {
+            this.payday()
+        } if (date.day() == 0) {
+            this.startofweek()
+        }
+    }
+
+    this.startofweek = () => {
+        this.churnstaff()
+    }
+
+    this.payday = () => {
+        var totalCost = _.reduce(hiredStaff, (sum, n) => {
+            return sum + n.salary
+        }, 0)
+        money -= totalCost
+        ui.update_stats(money, prestige)
+        ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
     this.play = () => {
@@ -59,6 +82,11 @@ export const Game = () => {
 
     this.pause = () => {
         isPaused = true;
+        ui.refresh_time_controls(speed, isPaused)
+    }
+
+    this.unpause = () => {
+        isPaused = false;
         ui.refresh_time_controls(speed, isPaused)
     }
 
@@ -84,10 +112,18 @@ export const Game = () => {
         availableToHire = _.filter(availableToHire, (a) => a.id != id);
         hiredStaff.push(matchingPerson);
         staffTab.update(availableToHire, hiredStaff)
+        money -= matchingPerson.fee
+        ui.update_stats(money, prestige)
     }
 
     this.fire = (id) => {
         hiredStaff = _.filter(hiredStaff, (a) => a.id != id);
+        staffTab.update(availableToHire, hiredStaff)
+    }
+
+    this.churnstaff = () => {
+        availableToHire = _.filter(availableToHire, (s) => Math.random() >= 0.5)
+        this.generateHires(Math.floor(Math.random() * 5))
         staffTab.update(availableToHire, hiredStaff)
     }
 
