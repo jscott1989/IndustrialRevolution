@@ -15,7 +15,8 @@
     "pick-random": "^2.0.0",
     "random-letter": "^1.0.1",
     "random-number": "0.0.7",
-    "stochasm": "^0.5.0"
+    "stochasm": "^0.5.0",
+    "vis": "^4.18.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",

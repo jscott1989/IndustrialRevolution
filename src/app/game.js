@@ -6,13 +6,13 @@ const _ = require('lodash')
 export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
-const startDate = moment(new Date(1796, 11, 1));
+const startDate = moment(new Date(1796, 4, 1));
 
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
-import { Research } from "./data/Research"
+import { Research, generateResearch } from "./data/Research"
 import * as main from './main'
 
 /**
@@ -20,7 +20,7 @@ import * as main from './main'
  */
 export const Game = () => {
     var speed = NORMAL_SPEED;
-    var isPaused = false;
+    var isPaused = true;
 
     var time = 0; // Days passed since the start date
     
@@ -28,6 +28,8 @@ export const Game = () => {
     var hiredStaff = [];
 
     var age = 20;
+
+    var research_web = [];
     var researchCompleted = [];
 
     var money = 1000;
@@ -36,7 +38,13 @@ export const Game = () => {
     var loan = 0;
     var gameover = false;
 
+    var events = [
+        [new Date(1796, 5, 0, 0, 0, 1), "MIRACLE CURE FOUND IN COWPOX?", "Zoologist reports that cowpox infection provides complete immunity to smallpox virus. Industries are hailing the release of a supposed “miracle vaccination” discovered by Edward Jenner as a way to provide immunity to the dreaded disease smallpox. If confirmed by other scientists, this serum will enable a massive influx of workers back into businesses and ensure a landslide profit for chemical engineers and agricultural companies."]
+    ]
+
     this.initialise = () => {
+
+
         this.generateHires(20)
         ui.update_stats(age, money, prestige);
         ui.refresh_time_controls(speed, isPaused)
@@ -52,6 +60,48 @@ export const Game = () => {
     }
 
     this.generateResearch = () => {
+
+        var research_json = require("./data/research.json")
+
+        /*
+        
+        {
+        "id": 1,
+        "officalTitle": "Atomic Theory",
+        "overview": "New insight into the fundamental nature of matter and the potential building blocks of the Universe",
+        "date": 1805,
+        "currencyvalue": "Low",
+        "prestigevalue": "High",
+        "section": "Science"
+        }
+        */
+
+        //research_web = _.map(research_json, (research) => [
+
+
+        for (var i = 0; i < research_json.length; i++){
+            var prerequisites = [];
+            if (typeof research_json[i]["prerequisites"]){
+                if (typeof research_json[i]["prerequisites"] === "string"){
+                    prerequisites = research_json[i]["prerequisites"].split(",")
+                }
+                else{
+                    prerequisites.push(research_json[i]["prerequisites"])
+                }
+            }
+
+            research_web.push(new Research(research_json[i]["id"], research_json[i]["officialTitle"], research_json[i]["overview"], 0, research_json[i]["date"], 0, 0, 0, prerequisites));
+
+        }
+
+        _.each(research_web, (research) => {
+            researchCompleted.push(research)
+        });
+
+        console.log(researchCompleted);
+        
+        researchTab.update(researchCompleted)
+        /*
         researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2], true, 0,-100))
         researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3], true, -95,-31))
         researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4], true, -59, 81))
@@ -63,6 +113,7 @@ export const Game = () => {
         researchCompleted.push(new Research(9,"Much Industry", "", 100, 1780, 7, 1000000, 0.5, [8]))
         researchCompleted.push(new Research(7,"Surgery", "", 100, 1780, 7, 1000000, 0.5, [3]))
         researchTab.update(researchCompleted)
+        */
     }
 
     /**
@@ -93,6 +144,18 @@ export const Game = () => {
         }
         if (money < 0) {
             this.outofmoney()
+        }
+        this.matchEvents(date)
+    }
+
+    this.matchEvents = (date) => {
+        console.log(events[0][0], date, events[0][0] <= date);
+        console.log("E", events[0])
+        if (events[0][0] <= date) {
+            // The event happens
+            ui.popup(events[0][1], events[0][2], () => {
+                events.shift(0);
+            });
         }
     }
 
