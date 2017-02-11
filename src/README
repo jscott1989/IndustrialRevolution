@@ -1,4 +1,10 @@
 To build:
+	# install requirements
     npm install
-    webpack build --watch
+    npm install nw
+
+    # setup building
+    webpack --watch
+
+    # to run
     nw src
