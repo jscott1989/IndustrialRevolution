@@ -35,6 +35,10 @@ export const bind = () => {
         update_tabs()
     })
 
+    $("#popup .okay_button").click(() => {
+        popup_okay()
+    });
+
     staffTab.bind()
 }
 
@@ -66,4 +70,23 @@ const update_tabs = () => {
     $("#" + activeTab + "tab").addClass("active");
     $(".tab_content").removeClass("active");
     $("#tab" + activeTab).addClass("active");
+}
+
+export const update_stats = (money, prestige) => {
+    $('#money').html('$' + money)
+    $('#prestige').text(prestige)
+}
+
+export const popup = (title, content) => {
+    game.pause();
+    $('#popup .title').text(title)
+    $('#popup .content').text(content)
+    $('#overlay').show()
+    $('#popup').show()
+}
+
+const popup_okay = () => {
+    game.unpause();
+    $('#overlay').hide()
+    $('#popup').hide()
 }
