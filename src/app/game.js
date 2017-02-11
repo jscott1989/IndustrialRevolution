@@ -1,6 +1,8 @@
 const moment = require('moment')
 const _ = require('lodash')
 
+// Tom doesn't know what he's talking about
+
 export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
