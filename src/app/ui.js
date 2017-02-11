@@ -6,8 +6,11 @@ import * as staffTab from './tabs/staff';
 // UI State
 var activeTab = "news";
 
+var popupCallback;
+
 
 export const initialise = () => {
+    activeTab = "news"
     update_tabs();
     bind();
 }
@@ -78,7 +81,8 @@ export const update_stats = (age, money, prestige) => {
     $('#prestige').text(prestige)
 }
 
-export const popup = (title, content) => {
+export const popup = (title, content, callback) => {
+    popupCallback = callback;
     game.pause();
     $('#popup .title').text(title)
     $('#popup .content').text(content)
@@ -90,4 +94,7 @@ const popup_okay = () => {
     game.unpause();
     $('#overlay').hide()
     $('#popup').hide()
+    if (popupCallback != null) {
+        popupCallback();
+    }
 }

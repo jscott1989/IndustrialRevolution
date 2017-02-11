@@ -10,6 +10,7 @@ import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
 import { generateResearch } from "./data/Research"
+import * as main from './main'
 
 /**
  * A game encapsulates an entire game state.
@@ -29,11 +30,14 @@ export const Game = () => {
     var money = 1000;
     var prestige = 0;
 
+    var loan = 0;
+    var gameover = false;
+
     this.initialise = () => {
         this.generateHires(20)
         ui.update_stats(age, money, prestige);
+        ui.refresh_time_controls(speed, isPaused)
         this.generateResearch(7)
-        ui.update_stats(money, prestige);
     }
 
 
@@ -55,10 +59,12 @@ export const Game = () => {
      * This manages the primary game loop
      */
     this.run = () => {
-        if (!isPaused) {
-            this.tick();
+        if (!gameover) {
+            if (!isPaused) {
+                this.tick();
+            }
+            setTimeout(this.run, speed)
         }
-        setTimeout(this.run, speed)
     }
 
     this.tick = () => {
@@ -74,6 +80,9 @@ export const Game = () => {
         }
         if (date.dayOfYear() == 1) {
             this.startofyear()
+        }
+        if (money < 0) {
+            this.outofmoney()
         }
     }
 
@@ -169,6 +178,19 @@ export const Game = () => {
         //hiredStaff.push(matchingPerson);
         //staffTab.update(availableToHire, hiredStaff)
         alert("Bought "+id.name);
+    }
+
+    this.outofmoney = () => {
+        // We have ran out of money, if we already have a loan, it's game over. Otherwise
+        // we offer a one off loan
+        // if (loan == 0) {
+
+        // } else {
+            ui.popup("You are bankrupt", "At the age of " + age + ", you have gone bankrupt. Your prestige was " + prestige, () => {
+                gameover = true;
+                main.gameover(prestige)
+            });
+        // }
     }
 
     return this;
