@@ -26,7 +26,7 @@ export const generatePerson = () => {
 
 function getName(){
 	var firstName = randomLetter();
-	var lastName = pickRandom(["Smith", "Jones", "Bob", "Foo", "Bar"]);
+	var lastName = pickRandom(["Smith", "Jones", "Johnson", "Williams", "Brown", "Green", "Davis", "Miller", "Wilson", "Miller", "Wilson", "Taylor", "Anderson", "Lawrence", "Stevens", "Warner", "Watson", "Thomas", "Martin", "Harris", "Clark", "Singh", "Scott", "Li", "Rodriguez", "Khan"]);
 
 	var name = firstName.toUpperCase() + ". " + lastName;
 
