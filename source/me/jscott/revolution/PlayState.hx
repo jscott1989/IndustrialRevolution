@@ -31,6 +31,11 @@ class PlayState extends FlxState {
     var pauseButton:FlxButton;
     var playButton:FlxButton;
     var FFButton:FlxButton;
+    var newsTab:FlxButton;
+    var staffTab:FlxButton;
+    var researchTab:FlxButton;
+    var grantsTab:FlxButton;
+    var optionsTab:FlxButton;
 
     private function createUI():Void {
         // Create time display
@@ -58,6 +63,27 @@ class PlayState extends FlxState {
         add(pauseButton);
         add(playButton);
         add(FFButton);
+
+        // Create primary interface tabs
+        newsTab = new FlxButton(50, 38, "", showNewsTab);
+        newsTab.loadGraphic(AssetPaths.newstab_active__png);
+        add(newsTab);
+
+        staffTab = new FlxButton(newsTab.x + newsTab.width + 10, newsTab.y, "", showStaffTab);
+        staffTab.loadGraphic(AssetPaths.stafftab__png);
+        add(staffTab);
+
+        researchTab = new FlxButton(staffTab.x + staffTab.width + 10, staffTab.y, "", showResearchTab);
+        researchTab.loadGraphic(AssetPaths.researchtab__png);
+        add(researchTab);
+
+        grantsTab = new FlxButton(researchTab.x + researchTab.width + 10, researchTab.y, "", showGrantsTab);
+        grantsTab.loadGraphic(AssetPaths.grantstab__png);
+        add(grantsTab);
+
+        optionsTab = new FlxButton(grantsTab.x + grantsTab.width + 10, grantsTab.y, "", showOptionsTab);
+        optionsTab.loadGraphic(AssetPaths.optionstab__png);
+        add(optionsTab);
     }
 
     private function play() {
@@ -92,7 +118,46 @@ class PlayState extends FlxState {
         FFButton.loadGraphic(AssetPaths.fastforwardbutton_active__png);
         pauseButton.loadGraphic(AssetPaths.pausebutton__png);
         playButton.loadGraphic(AssetPaths.playbutton__png);
+    }
 
+    private function showNewsTab() {
+        newsTab.loadGraphic(AssetPaths.newstab_active__png);
+        staffTab.loadGraphic(AssetPaths.stafftab__png);
+        researchTab.loadGraphic(AssetPaths.researchtab__png);
+        grantsTab.loadGraphic(AssetPaths.grantstab__png);
+        optionsTab.loadGraphic(AssetPaths.optionstab__png);
+    }
+
+    private function showStaffTab() {
+        newsTab.loadGraphic(AssetPaths.newstab__png);
+        staffTab.loadGraphic(AssetPaths.stafftab_active__png);
+        researchTab.loadGraphic(AssetPaths.researchtab__png);
+        grantsTab.loadGraphic(AssetPaths.grantstab__png);
+        optionsTab.loadGraphic(AssetPaths.optionstab__png);
+    }
+
+    private function showResearchTab() {
+        newsTab.loadGraphic(AssetPaths.newstab__png);
+        staffTab.loadGraphic(AssetPaths.stafftab__png);
+        researchTab.loadGraphic(AssetPaths.researchtab_active__png);
+        grantsTab.loadGraphic(AssetPaths.grantstab__png);
+        optionsTab.loadGraphic(AssetPaths.optionstab__png);
+    }
+
+    private function showGrantsTab() {
+        newsTab.loadGraphic(AssetPaths.newstab__png);
+        staffTab.loadGraphic(AssetPaths.stafftab__png);
+        researchTab.loadGraphic(AssetPaths.researchtab__png);
+        grantsTab.loadGraphic(AssetPaths.grantstab_active__png);
+        optionsTab.loadGraphic(AssetPaths.optionstab__png);
+    }
+
+    private function showOptionsTab() {
+        newsTab.loadGraphic(AssetPaths.newstab__png);
+        staffTab.loadGraphic(AssetPaths.stafftab__png);
+        researchTab.loadGraphic(AssetPaths.researchtab__png);
+        grantsTab.loadGraphic(AssetPaths.grantstab__png);
+        optionsTab.loadGraphic(AssetPaths.optionstab_active__png);
     }
 
     /**
