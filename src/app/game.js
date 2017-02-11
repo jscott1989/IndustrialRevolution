@@ -1,6 +1,7 @@
 const moment = require('moment')
 const _ = require('lodash')
 
+export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
 const startDate = moment(new Date(1796, 11, 1));
@@ -96,14 +97,29 @@ export const Game = () => {
 
     this.age = () => {
         age += 1
-        _.each(availableToHire, (h) => {
-            h.age += 1
-        })
-        _.each(hiredStaff, (h) => {
-            h.age += 1
-        })
-        ui.update_stats(age, money, prestige)
-        staffTab.update(availableToHire, hiredStaff)
+
+        if (age > MAX_AGE) {
+            ui.popup("You have died", "At the age of " + age + " you have died. Your prestige is " + prestige, () => {
+                gameover = true
+                main.gameover(prestige)
+            })
+        } else {
+            _.filter(availableToHire, (h) => {
+                h.age += 1
+                return h.age <= MAX_AGE
+            })
+
+            _.filter(hiredStaff, (h) => {
+                h.age += 1
+                ui.popup(h.name + " has died", "At the grand old age of " + h.age + ", " + h.name + " has died peacefully in their sleep")
+                if (h.age > MAX_AGE) {
+                    return false
+                }
+                return true
+            })
+            ui.update_stats(age, money, prestige)
+            staffTab.update(availableToHire, hiredStaff)
+        }
 
     }
 
