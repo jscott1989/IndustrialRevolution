@@ -31,5 +31,6 @@
     </orderEntry>
     <orderEntry type="library" name="OpenFL" level="project" />
     <orderEntry type="library" name="Polygonal-DS" level="project" />
+    <orderEntry type="library" name="Datetime" level="project" />
   </component>
 </module>
