@@ -1,5 +1,6 @@
 package me.jscott.revolution;
 
+import flixel.ui.FlxButton;
 import flixel.FlxG;
 import datetime.DateTime;
 import flixel.util.FlxColor;
@@ -21,13 +22,18 @@ class PlayState extends FlxState {
     var tickElapsed:Float = 0;
     var time:Int = 0;
     var speed:Float = 1.0;
+    var paused = false;
     var startDate = DateTime.fromString('1670-01-01 00:00:01');
 
     // Interface elements
     var dayText:FlxText;
     var timeText:FlxText;
+    var pauseButton:FlxButton;
+    var playButton:FlxButton;
+    var FFButton:FlxButton;
 
     private function createUI():Void {
+        // Create time display
         dayText = new FlxText(FlxG.width - 170, 10, 160); // x, y, width
         dayText.setFormat(null, 20, FlxColor.WHITE, CENTER);
         dayText.text = formatDayText(time);
@@ -37,6 +43,56 @@ class PlayState extends FlxState {
         timeText.setFormat(null, 20, FlxColor.WHITE, CENTER);
         timeText.text = formatTimeText(time);
         add(timeText);
+
+        // Create time controls
+        pauseButton= new FlxButton(FlxG.width - 140, timeText.y + timeText.height, "", pause);
+        pauseButton.loadGraphic(AssetPaths.pausebutton__png);
+
+        playButton= new FlxButton(pauseButton.x + pauseButton.width + 5, pauseButton.y, "", play);
+        playButton.loadGraphic(AssetPaths.playbutton_active__png);
+
+        FFButton = new FlxButton(playButton.x + playButton.width + 5, playButton.y, "", fastForward);
+        FFButton.loadGraphic(AssetPaths.fastforwardbutton__png);
+
+        pauseButton.width = 10;
+        add(pauseButton);
+        add(playButton);
+        add(FFButton);
+    }
+
+    private function play() {
+        speed = NORMAL_SPEED;
+        paused = false;
+        playButton.loadGraphic(AssetPaths.playbutton_active__png);
+        pauseButton.loadGraphic(AssetPaths.pausebutton__png);
+        FFButton.loadGraphic(AssetPaths.fastforwardbutton__png);
+    }
+
+    private function pause() {
+        if (paused) {
+            paused = false;
+            pauseButton.loadGraphic(AssetPaths.pausebutton__png);
+            if (speed == NORMAL_SPEED) {
+                playButton.loadGraphic(AssetPaths.playbutton_active__png);
+            } else {
+                FFButton.loadGraphic(AssetPaths.fastforwardbutton_active__png);
+            }
+        } else {
+            paused = true;
+            pauseButton.loadGraphic(AssetPaths.pausebutton_active__png);
+            playButton.loadGraphic(AssetPaths.playbutton__png);
+            FFButton.loadGraphic(AssetPaths.fastforwardbutton__png);
+        }
+    }
+
+    private function fastForward() {
+        speed = FAST_SPEED;
+        paused = false;
+
+        FFButton.loadGraphic(AssetPaths.fastforwardbutton_active__png);
+        pauseButton.loadGraphic(AssetPaths.pausebutton__png);
+        playButton.loadGraphic(AssetPaths.playbutton__png);
+
     }
 
     /**
@@ -89,10 +145,12 @@ class PlayState extends FlxState {
 		super.update(elapsed);
 
         // Manage ticks
-        tickElapsed += elapsed;
-        if (tickElapsed >= speed) {
-            tick();
-            tickElapsed = 0;
+        if (!paused) {
+            tickElapsed += elapsed;
+            if (tickElapsed >= speed) {
+                tick();
+                tickElapsed = 0;
+            }
         }
 	}
 
