@@ -52,13 +52,15 @@ export const Game = () => {
     }
 
     this.generateResearch = () => {
-        researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2]))
-        researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3]))
-        researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4]))
-        researchCompleted.push(new Research(4,"Military", "", 100, 7, 1780, 1000000, 0.5, [5]))
-        researchCompleted.push(new Research(5,"Natural Sciences", "", 100, 1780, 7, 1000000, 0.5, [1]))
+        researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2], true, 0,-100))
+        researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3], true, -95,-31))
+        researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4], true, -59, 81))
+        researchCompleted.push(new Research(4,"Military", "", 100, 7, 1780, 1000000, 0.5, [5], true, 59, 81))
+        researchCompleted.push(new Research(5,"Natural Sciences", "", 100, 1780, 7, 1000000, 0.5, [1], true, 95, -31))
 
         researchCompleted.push(new Research(6,"More Industry", "", 100, 1780, 7, 1000000, 0.5, [1]))
+        researchCompleted.push(new Research(8,"Most Industry", "", 100, 1780, 7, 1000000, 0.5, [6]))
+        researchCompleted.push(new Research(9,"Much Industry", "", 100, 1780, 7, 1000000, 0.5, [8]))
         researchCompleted.push(new Research(7,"Surgery", "", 100, 1780, 7, 1000000, 0.5, [3]))
         researchTab.update(researchCompleted)
     }
