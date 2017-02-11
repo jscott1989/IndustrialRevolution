@@ -3,13 +3,14 @@ const _ = require('lodash')
 
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
-const startDate = moment(new Date(1670, 0, 1));
+const startDate = moment(new Date(1796, 11, 1));
 
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
 import { generateResearch } from "./data/Research"
+import * as main from './main'
 
 /**
  * A game encapsulates an entire game state.
@@ -23,15 +24,20 @@ export const Game = () => {
     var availableToHire = [];
     var hiredStaff = [];
 
+    var age = 20;
     var researchCompleted = [];
 
     var money = 1000;
     var prestige = 0;
 
+    var loan = 0;
+    var gameover = false;
+
     this.initialise = () => {
         this.generateHires(20)
+        ui.update_stats(age, money, prestige);
+        ui.refresh_time_controls(speed, isPaused)
         this.generateResearch(7)
-        ui.update_stats(money, prestige);
     }
 
 
@@ -53,10 +59,12 @@ export const Game = () => {
      * This manages the primary game loop
      */
     this.run = () => {
-        if (!isPaused) {
-            this.tick();
+        if (!gameover) {
+            if (!isPaused) {
+                this.tick();
+            }
+            setTimeout(this.run, speed)
         }
-        setTimeout(this.run, speed)
     }
 
     this.tick = () => {
@@ -66,8 +74,15 @@ export const Game = () => {
 
         if (date.get('date') == 1) {
             this.payday()
-        } if (date.day() == 0) {
+        }
+        if (date.day() == 0) {
             this.startofweek()
+        }
+        if (date.dayOfYear() == 1) {
+            this.startofyear()
+        }
+        if (money < 0) {
+            this.outofmoney()
         }
     }
 
@@ -75,12 +90,29 @@ export const Game = () => {
         this.churnstaff()
     }
 
+    this.startofyear = () => {
+        this.age()
+    }
+
+    this.age = () => {
+        age += 1
+        _.each(availableToHire, (h) => {
+            h.age += 1
+        })
+        _.each(hiredStaff, (h) => {
+            h.age += 1
+        })
+        ui.update_stats(age, money, prestige)
+        staffTab.update(availableToHire, hiredStaff)
+
+    }
+
     this.payday = () => {
         var totalCost = _.reduce(hiredStaff, (sum, n) => {
             return sum + n.salary
         }, 0)
         money -= totalCost
-        ui.update_stats(money, prestige)
+        ui.update_stats(age, money, prestige)
         ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
@@ -125,7 +157,7 @@ export const Game = () => {
         hiredStaff.push(matchingPerson);
         staffTab.update(availableToHire, hiredStaff)
         money -= matchingPerson.fee
-        ui.update_stats(money, prestige)
+        ui.update_stats(age, money, prestige)
     }
 
     this.fire = (id) => {
@@ -146,6 +178,19 @@ export const Game = () => {
         //hiredStaff.push(matchingPerson);
         //staffTab.update(availableToHire, hiredStaff)
         alert("Bought "+id.name);
+    }
+
+    this.outofmoney = () => {
+        // We have ran out of money, if we already have a loan, it's game over. Otherwise
+        // we offer a one off loan
+        // if (loan == 0) {
+
+        // } else {
+            ui.popup("You are bankrupt", "At the age of " + age + ", you have gone bankrupt. Your prestige was " + prestige, () => {
+                gameover = true;
+                main.gameover(prestige)
+            });
+        // }
     }
 
     return this;
