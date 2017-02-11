@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "officalTitle": "Atomic Theory",
+        "officialTitle": "Atomic Theory",
         "overview": "New insight into the fundamental nature of matter and the potential building blocks of the Universe",
         "date": 1805,
         "currencyvalue": "Low",
@@ -10,17 +10,17 @@
     },
     {
         "id": 2,
-        "officalTitle": "Avogadro Constant",
+        "officialTitle": "Avogadro Constant",
         "overview": "Further development of John Dalton's theory of matter, which helps address diatomic nature of gases",
         "date": 1811,
         "currencyvalue": "Low",
         "prestigevalue": "Medium",
-        "prerequisites": 2,
+        "prerequisites": 1,
         "section": "Science"
     },
     {
         "id": 3,
-        "officalTitle": "Locomotive prototype",
+        "officialTitle": "Locomotive prototype",
         "overview": "A crude but fascinating new theory on a new nature of transport. Currently of little use but may very easily advance into a major area of interest in the future",
         "date": 1803,
         "currencyvalue": "Low",
@@ -29,17 +29,17 @@
     },
     {
         "id": 4,
-        "officalTitle": "The Rocket",
+        "officialTitle": "The Rocket",
         "overview": "A major advance on the earlier prototype, the Rocket can achieve higher speeds of travel and can move greater amounts of cargo. A few extra funds and it may well be one of the most influential new areas of business and transportation.",
         "date": 1829,
         "currencyvalue": "Medium",
         "prestigevalue": "High",
-        "prerequisites": 4,
+        "prerequisites": 3,
         "section": "Transport"
     },
     {
         "id": 5,
-        "officalTitle": "Hot blast ",
+        "officialTitle": "Hot blast ",
         "overview": "The preheating of air entering a blast furnace. Will drastically reduce consumption of fuel and increase effiency of furnaces.",
         "date": 1828,
         "currencyvalue": "High",
@@ -48,18 +48,18 @@
     },
     {
         "id": 6,
-        "officalTitle": "Great Western Railway",
+        "officialTitle": "Great Western Railway",
         "overview": "A massive nationwide railway connection, connecting London to the Midlands and spreading across the South West of England",
         "date": 1835,
         "cost": "High",
         "currencyvalue": "High",
         "prestigevalue": "Low",
-        "prerequisites": "4,5,6",
+        "prerequisites": "3,4,5",
         "section": "Transport"
     },
     {
         "id": 7,
-        "officalTitle": "Improved Telegraph",
+        "officialTitle": "Improved Telegraph",
         "overview": "Improved methods of communication",
         "date": 1836,
         "currencyvalue": "Medium",
@@ -68,7 +68,7 @@
     },
     {
         "id": 8,
-        "officalTitle": "Telephone",
+        "officialTitle": "Telephone",
         "overview": "Faster and more efficient of communication, a replacement for the telegraph",
         "date": 1876,
         "currencyvalue": "High",
@@ -78,7 +78,7 @@
     },
     {
         "id": 9,
-        "officalTitle": "Giffard Dirigible",
+        "officialTitle": "Giffard Dirigible",
         "overview": "Alternate design for hot air balloons, a possible future name being the \"airship\"",
         "date": 1852,
         "currencyvalue": "Medium",
@@ -88,7 +88,7 @@
     },
     {
         "id": 10,
-        "officalTitle": "Underground Railway",
+        "officialTitle": "Underground Railway",
         "overview": "Not available for cross-country travel, but does reduce crowds in upper city levels and enabe greater tourist attraction",
         "date": 1862,
         "currencyvalue": "Medium",
@@ -98,27 +98,28 @@
     },
     {
         "id": 11,
-        "officalTitle": "Electromagnetic Field- Orfsted",
+        "officialTitle": "Electromagnetic Field- Orfsted",
         "overview": "A new introduction to electricity and magnetism in general, characterised by the effect the fields have on a needle of a compass",
         "date": 1820,
         "cost": "Low",
         "currencyvalue": "Low",
         "prestigevalue": "Medium",
+        "prerequisites": 1,
         "section": "Science"
     },
     {
         "id": 12,
-        "officalTitle": "Michael Faraday",
+        "officialTitle": "Michael Faraday",
         "overview": "Electromagnetic Induction found to be the foundation for electrical generators, which will allow the introduction of electricity to industry and society",
         "date": 1831,
         "currencyvalue": "High",
         "prestigevalue": "High",
-        "prerequisites": 12,
+        "prerequisites": 11,
         "section": "Science"
     },
     {
         "id": 13,
-        "officalTitle": "Maxwell's EM equations",
+        "officialTitle": "Maxwell's EM equations",
         "overview": "Links light, magnetic and electric fields into a single phenomenon, and describes their interaction and motion in experimental physics.",
         "date": 1864,
         "currencyvalue": "Medium",
@@ -128,17 +129,17 @@
     },
     {
         "id": 14,
-        "officalTitle": "Mendeleev-Periodic Table",
+        "officialTitle": "Mendeleev-Periodic Table",
         "overview": "Correctly distributes the known elements into categories of atomic mass and composition, and predicts the presence of additional unknown elements",
         "date": 1869,
         "currencyvalue": "Medium",
         "prestigevalue": "Medium",
-        "prerequisites": 2,
+        "prerequisites": 1,
         "section": "Science"
     },
     {
         "id": 15,
-        "officalTitle": "Artillery Rockets",
+        "officialTitle": "Artillery Rockets",
         "overview": "Improved accuracy of shells and removal of dangerous materials",
         "date": 1844,
         "currencyvalue": "Medium",
@@ -147,57 +148,63 @@
     },
     {
         "id": 16,
-        "officalTitle": "British Ironlad Battleships",
+        "officialTitle": "British Ironlad Battleships",
         "overview": "Replacing the wooden exteriors of warships with iron and steel have made them virtually impenetrable to modern artillery fire.",
         "date": 1860,
         "currencyvalue": "High",
         "prestigevalue": "Low",
+        "prerequisites": 5,
         "section": "Military"
     },
     {
         "id": 17,
-        "officalTitle": "Dynamite",
+        "officialTitle": "Dynamite",
         "overview": "Though it may appear to be only for warfare, this simple item also exhibits use in mining, though the same risks still apply",
         "date": 1866,
         "currencyvalue": "High",
         "prestigevalue": "Low",
+        "prerequisites": 16,
         "section": "Military/Industry"
     },
     {
         "id": 18,
-        "officalTitle": "Internal combustion engine",
+        "officialTitle": "Internal combustion engine",
         "overview": "Shows tremendous potential in pistons, turbines and motors and may further advance mass production rates in factories",
         "date": 1860,
         "currencyvalue": "High",
         "prestigevalue": "High",
+        "prerequisites": "3,12",
         "section": "Industry"
     },
     {
         "id": 19,
-        "officalTitle": "Gauge Unification",
+        "officialTitle": "Gauge Unification",
         "overview": "Where there were previously five different gauges across England railways, there is now one national gauge.",
         "date": 1890,
         "cost": "High",
         "currencyvalue": "Low",
         "prestigevalue": "Low",
+        "prerequisites": "6,10",
         "section": "Transport"
     },
     {
         "id": 20,
-        "officalTitle": "Doppler effect",
+        "officialTitle": "Doppler effect",
         "overview": "Through careful experimentation, additional properties of longitudinal waves have been discovered, such as compression of wavelength with added velocity",
         "date": 1842,
         "currencyvalue": "Low",
         "prestigevalue": "Medium",
+        "prerequisites": 13,
         "section": "Science"
     },
     {
         "id": 21,
-        "officalTitle": "Discovery of Neptune",
+        "officialTitle": "Discovery of Neptune",
         "overview": "With the advancements in telescopes, a new body in the Solar System has been found",
         "date": 1846,
         "currencyvalue": "Medium",
         "prestigevalue": "Medium",
+        "prerequisites": 20,
         "section": "Science"
     }
 ]
