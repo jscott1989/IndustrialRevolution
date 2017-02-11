@@ -3,7 +3,7 @@ const _ = require('lodash')
 
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
-const startDate = moment(new Date(1670, 0, 1));
+const startDate = moment(new Date(1796, 11, 1));
 
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
@@ -21,12 +21,13 @@ export const Game = () => {
     var availableToHire = [];
     var hiredStaff = [];
 
+    var age = 20;
     var money = 1000;
     var prestige = 0;
 
     this.initialise = () => {
         this.generateHires(20)
-        ui.update_stats(money, prestige);
+        ui.update_stats(age, money, prestige);
     }
 
 
@@ -54,8 +55,12 @@ export const Game = () => {
 
         if (date.get('date') == 1) {
             this.payday()
-        } if (date.day() == 0) {
+        }
+        if (date.day() == 0) {
             this.startofweek()
+        }
+        if (date.dayOfYear() == 1) {
+            this.startofyear()
         }
     }
 
@@ -63,12 +68,29 @@ export const Game = () => {
         this.churnstaff()
     }
 
+    this.startofyear = () => {
+        this.age()
+    }
+
+    this.age = () => {
+        age += 1
+        _.each(availableToHire, (h) => {
+            h.age += 1
+        })
+        _.each(hiredStaff, (h) => {
+            h.age += 1
+        })
+        ui.update_stats(age, money, prestige)
+        staffTab.update(availableToHire, hiredStaff)
+
+    }
+
     this.payday = () => {
         var totalCost = _.reduce(hiredStaff, (sum, n) => {
             return sum + n.salary
         }, 0)
         money -= totalCost
-        ui.update_stats(money, prestige)
+        ui.update_stats(age, money, prestige)
         ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
@@ -113,7 +135,7 @@ export const Game = () => {
         hiredStaff.push(matchingPerson);
         staffTab.update(availableToHire, hiredStaff)
         money -= matchingPerson.fee
-        ui.update_stats(money, prestige)
+        ui.update_stats(age, money, prestige)
     }
 
     this.fire = (id) => {

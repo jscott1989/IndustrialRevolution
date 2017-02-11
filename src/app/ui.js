@@ -72,7 +72,8 @@ const update_tabs = () => {
     $("#tab" + activeTab).addClass("active");
 }
 
-export const update_stats = (money, prestige) => {
+export const update_stats = (age, money, prestige) => {
+    $('#age').html(age)
     $('#money').html('$' + money)
     $('#prestige').text(prestige)
 }
