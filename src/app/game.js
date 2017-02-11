@@ -9,7 +9,7 @@ import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
-import { generateResearch } from "./data/Research"
+import { Research } from "./data/Research"
 
 /**
  * A game encapsulates an entire game state.
@@ -30,7 +30,7 @@ export const Game = () => {
 
     this.initialise = () => {
         this.generateHires(20)
-        this.generateResearch(7)
+        this.generateResearch()
         ui.update_stats(money, prestige);
     }
 
@@ -42,10 +42,15 @@ export const Game = () => {
         staffTab.update(availableToHire, hiredStaff)
     }
 
-    this.generateResearch = (num) => {
-        _.each(_.range(num), () => {
-            researchCompleted.push(generateResearch())
-        });
+    this.generateResearch = () => {
+        researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2]))
+        researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3]))
+        researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4]))
+        researchCompleted.push(new Research(4,"Military", "", 100, 7, 1780, 1000000, 0.5, [5]))
+        researchCompleted.push(new Research(5,"Natural Sciences", "", 100, 1780, 7, 1000000, 0.5, [1]))
+
+        researchCompleted.push(new Research(6,"More Industry", "", 100, 1780, 7, 1000000, 0.5, [1]))
+        researchCompleted.push(new Research(7,"Surgery", "", 100, 1780, 7, 1000000, 0.5, [3]))
         researchTab.update(researchCompleted)
     }
 
