@@ -12,7 +12,10 @@
     "jquery": "^3.1.1",
     "lodash": "latest",
     "moment": "^2.17.1",
-    "random-number": "0.0.7"
+    "pick-random": "^2.0.0",
+    "random-letter": "^1.0.1",
+    "random-number": "0.0.7",
+    "stochasm": "^0.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
