@@ -117,3 +117,50 @@
 .scrollable {
     overflow: scroll;
 }
+
+#research_sliders {
+    background-color: red;
+    width: 200px;
+    height: 400px;
+    float: left;
+}
+
+#research_tech_tree {
+    background-color: yellow;
+    width: 700px;
+    height: 400px;
+    float: right;
+}
+
+#completed_research_table {
+    clear: both;
+    height: 100px;
+}
+
+/*  hack to stop page bounce
+    https://github.com/nwjs/nw.js/issues/3109#issuecomment-105283351
+ */
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.research {
+    font-size: 50%;
+    .sell_button {
+        border: 1px solid black;
+        padding: 10px;
+
+        &:hover {
+            color: gray;
+        }
+    }
+    .publish_button {
+        border: 1px solid black;
+        padding: 10px;
+
+        &:hover {
+            color: gray;
+        }
+    }
+}

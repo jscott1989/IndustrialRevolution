@@ -15,10 +15,22 @@
                 <div>Fee {{fee}} Salary {{salary}}</div>
             </td>
             <td class="hire">
-                <div class="hire_button clickable" data-id="{{lala}}">
+                <div class="hire_button clickable" data-id="{{id}}">
                     Hire
                 </div>
             </td>
+        </tr>
+    </script>
+    <script id="completed-research-template" type="text/x-handlebars-template">
+        <tr class="research">
+            <!-- name -->
+            <td>{{name}}</td>
+            <!-- date completed -->
+            <td>{{date_completed}}</td>
+            <!-- button: sell -->
+            <td><div class="sell_button clickable" data-id="{{id}}">Sell for ${{financial_value}}</div></td>
+            <!-- button: publish -->
+            <td><div class="publish_button clickable" data-id="{{id}}">Publish for {{prestige_value}}</div></td>
         </tr>
     </script>
     <div id="main">
@@ -55,7 +67,15 @@
                     </table>
                 </div>
             </div>
-            <div class="tab_content" id="tabresearch">RESEARCH</div>
+            <div class="tab_content" id="tabresearch">
+                <div id="research_sliders">SLIDERS</div>
+                <div id="research_tech_tree">TECH TREE</div>
+                <div class="scrollable" id="completed_research_table">
+                    <table>
+                        
+                    </table>
+                </div>
+            </div>
             <div class="tab_content" id="tabgrants">GRANTS</div>
             <div class="tab_content" id="taboptions">OPTIONS</div>
         </div>
