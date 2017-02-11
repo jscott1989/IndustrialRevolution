@@ -7,7 +7,7 @@
     <script id="hireable-person-template" type="text/x-handlebars-template">
         <tr class="person">
             <td class="photo">
-                <img src="/assets/person.png" />
+                <img src="/assets/{{avatar}}.png" />
             </td>
             <td class="info">
                 <div><strong>{{name}}</strong> ({{age}})</div>
@@ -24,7 +24,7 @@
     <script id="staff-person-template" type="text/x-handlebars-template">
         <tr class="person">
             <td class="photo">
-                <img src="/assets/person.png" />
+                <img src="/assets/{{avatar}}.png" />
             </td>
             <td class="info">
                 <div><strong>{{name}}</strong> ({{age}})</div>
@@ -74,7 +74,7 @@
                 <div class="clear">
             </div>
             <div class="stats">
-                Money <span id="money">£100</span>. Prestige <span id="prestige">0</span>
+                Age <span id="age">20</span> Money <span id="money">£100</span>. Prestige <span id="prestige">0</span>
             </div>
         </div>
 

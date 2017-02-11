@@ -4,7 +4,8 @@ var randomLetter = require('random-letter');
 var rand = require('random-number');
 var pickRandom = require('pick-random');
 
-export function Person(id, name, age, skill) {
+export function Person(id, avatar, name, age, skill) {
+    this.avatar = avatar
     this.id = id
     this.name = name
     this.age = age
@@ -20,13 +21,23 @@ export const generatePerson = () => {
     var name = getName();
     var age = getAge();
     var skill = getSkill();
+    var avatar = getAvatar();
 
-    return new Person(uuid.v4(), name, age, skill)
+    return new Person(uuid.v4(), avatar, name, age, skill)
+}
+
+var i = 1;
+function getAvatar(){
+	i = i + 1;
+    if (i > 45) {
+        i= 1;
+    }
+    return i;
 }
 
 function getName(){
 	var firstName = randomLetter();
-	var lastName = pickRandom(["Smith", "Jones", "Bob", "Foo", "Bar"]);
+	var lastName = pickRandom(["Smith", "Jones", "Johnson", "Williams", "Brown", "Green", "Davis", "Miller", "Wilson", "Miller", "Wilson", "Taylor", "Anderson", "Lawrence", "Stevens", "Warner", "Watson", "Thomas", "Martin", "Harris", "Clark", "Singh", "Scott", "Li", "Rodriguez", "Khan"]);
 
 	var name = firstName.toUpperCase() + ". " + lastName;
 
