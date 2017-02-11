@@ -39,6 +39,11 @@
     text-align: center;
 }
 
+#tabstaff h2 {
+    float: left;
+    width: 400px;
+}
+
 #time {
     padding-top: 10px;
     text-align: center;
@@ -113,7 +118,7 @@
 }
 
 #hire_table, #staff_table {
-    height: 500px;
+    height: 490px;
     width: 440px;
     float: left;
 }

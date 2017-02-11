@@ -10,12 +10,8 @@ import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
-<<<<<<< HEAD
-import { Research } from "./data/Research"
-=======
-import { generateResearch } from "./data/Research"
+import { Research, generateResearch } from "./data/Research"
 import * as main from './main'
->>>>>>> 91f372aaee2dab71536130490e93224aafc165fe
 
 /**
  * A game encapsulates an entire game state.
