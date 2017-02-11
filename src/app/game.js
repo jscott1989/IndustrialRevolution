@@ -6,6 +6,7 @@ export const FAST_SPEED = 500
 const startDate = moment(new Date(1670, 0, 1));
 
 import * as ui from './ui'
+import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 
 /**
@@ -18,17 +19,18 @@ export const Game = () => {
     var time = 0; // Days passed since the start date
     
     var availableToHire = [];
+    var hiredStaff = [];
 
     this.initialise = () => {
         this.generateHires(20)
-        console.log(availableToHire)
     }
 
 
     this.generateHires = (num) => {
         _.each(_.range(num), () => {
-            availableToHire.push(generatePerson());
+            availableToHire.push(generatePerson())
         });
+        staffTab.update(availableToHire, hiredStaff)
     }
 
     /**
@@ -38,34 +40,50 @@ export const Game = () => {
         if (!isPaused) {
             this.tick();
         }
-        setTimeout(this.run, speed);
+        setTimeout(this.run, speed)
     }
 
     this.tick = () => {
         time += 1;
-        var date = startDate.clone().add(time, 'days');
-        ui.update_date(date);
+        var date = startDate.clone().add(time, 'days')
+        ui.update_date(date)
     }
 
     this.play = () => {
         if (isPaused) {
-            isPaused = false;
+            isPaused = false
         }
-        speed = NORMAL_SPEED;
-        ui.refresh_time_controls(speed, isPaused);
+        speed = NORMAL_SPEED
+        ui.refresh_time_controls(speed, isPaused)
     }
 
     this.pause = () => {
         isPaused = true;
-        ui.refresh_time_controls(speed, isPaused);
+        ui.refresh_time_controls(speed, isPaused)
     }
 
     this.fastforward = () => {
         if (isPaused) {
-            isPaused = false;
+            isPaused = false
         }
-        speed = FAST_SPEED;
-        ui.refresh_time_controls(speed, isPaused);
+        speed = FAST_SPEED
+        ui.refresh_time_controls(speed, isPaused)
+    }
+
+    this.findByID = (a, id) => {
+        for (var b in a) {
+            if (b.id == id) {
+                return b;
+            }
+        }
+        return null;
+    }
+
+    this.hire = (id) => {
+        var matchingPerson = this.findByID(availableToHire, id);
+        availableToHire = _.filter(availableToHire, (a) => a.id != id);
+        hiredStaff.push(matchingPerson);
+        staffTab.update(availableToHire, hiredStaff)
     }
 
     return this;

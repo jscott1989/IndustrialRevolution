@@ -4,6 +4,23 @@
     <title>Industrial Revolution</title>
 </head>
 <body>
+    <script id="hireable-person-template" type="text/x-handlebars-template">
+        <tr class="person">
+            <td class="photo">
+                <img src="/assets/person.png" />
+            </td>
+            <td class="info">
+                <div><strong>{{name}}</strong> ({{age}})</div>
+                <div>Skill {{skill}}</div>
+                <div>Fee {{fee}} Salary {{salary}}</div>
+            </td>
+            <td class="hire">
+                <div class="hire_button clickable" data-id="{{lala}}">
+                    Hire
+                </div>
+            </td>
+        </tr>
+    </script>
     <div id="main">
         <div id="header">
             <div id="newsfeed">
@@ -28,9 +45,16 @@
                 <div class="clear">
             </div>
         </div>
+
         <div id="content">
             <div class="tab_content" id="tabnews">NEWS</div>
-            <div class="tab_content" id="tabstaff">STAFF</div>
+            <div class="tab_content" id="tabstaff">
+                <div class="scrollable" id="hire_table">
+                    <table>
+                        
+                    </table>
+                </div>
+            </div>
             <div class="tab_content" id="tabresearch">RESEARCH</div>
             <div class="tab_content" id="tabgrants">GRANTS</div>
             <div class="tab_content" id="taboptions">OPTIONS</div>

@@ -20,5 +20,10 @@ module.exports = {
             { test: /\.woff$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff&name=fonts/[name].[ext]' },
             { test: /\.woff2$/, loader: 'url-loader?limit=65000&mimetype=application/font-woff2&name=fonts/[name].[ext]' },
         ]
+    },
+  resolve: {
+    alias: {
+       handlebars: 'handlebars/dist/handlebars.min.js'
     }
+  }
 };
