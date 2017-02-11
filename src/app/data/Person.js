@@ -4,7 +4,6 @@ var age = require('random-number');
 
 export function Person(id, name, age, skill) {
     this.id = id
-    this.lala = id
     this.name = name
     this.age = age
     this.skill = skill

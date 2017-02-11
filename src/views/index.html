@@ -15,8 +15,25 @@
                 <div>Fee {{fee}} Salary {{salary}}</div>
             </td>
             <td class="hire">
-                <div class="hire_button clickable" data-id="{{lala}}">
+                <div class="hire_button clickable" data-id="{{id}}">
                     Hire
+                </div>
+            </td>
+        </tr>
+    </script>
+    <script id="staff-person-template" type="text/x-handlebars-template">
+        <tr class="person">
+            <td class="photo">
+                <img src="/assets/person.png" />
+            </td>
+            <td class="info">
+                <div><strong>{{name}}</strong> ({{age}})</div>
+                <div>Skill {{skill}}</div>
+                <div>Salary {{salary}}</div>
+            </td>
+            <td class="hire">
+                <div class="fire_button clickable" data-id="{{id}}">
+                    Fire
                 </div>
             </td>
         </tr>
@@ -44,6 +61,9 @@
                 <div class="timecontrol clickable" id="ff"><i class="fa fa-forward"></i></div>
                 <div class="clear">
             </div>
+            <div class="stats">
+                Money <span id="money">£100</span>. Prestige <span id="prestige">0</span>
+            </div>
         </div>
 
         <div id="content">
@@ -54,10 +74,25 @@
                         
                     </table>
                 </div>
+                <div class="scrollable" id="staff_table">
+                    <table>
+                        
+                    </table>
+                </div>
+                <div class="clear"></div>
             </div>
             <div class="tab_content" id="tabresearch">RESEARCH</div>
             <div class="tab_content" id="tabgrants">GRANTS</div>
             <div class="tab_content" id="taboptions">OPTIONS</div>
+        </div>
+    </div>
+    <div id="overlay">
+        <div id="popup">
+            <div class="title">Pay Day</div>
+            <div class="content">You paid your staff $....</div>
+            <div class="controls">
+                <div class="okay_button clickable">Okay</div>
+            </div>
         </div>
     </div>
     <script src="/bundle.js"></script>
