@@ -33,6 +33,7 @@ export const Game = () => {
 
     var research_web = {};
     var researchCompleted = [];
+    var research_points = 0;
 
     var money = 1000;
     var prestige = 0;
@@ -66,22 +67,6 @@ export const Game = () => {
 
         var research_json = require("./data/research.json")
 
-        /*
-        
-        {
-        "id": 1,
-        "officalTitle": "Atomic Theory",
-        "overview": "New insight into the fundamental nature of matter and the potential building blocks of the Universe",
-        "date": 1805,
-        "currencyvalue": "Low",
-        "prestigevalue": "High",
-        "section": "Science"
-        }
-        */
-
-        //research_web = _.map(research_json, (research) => [
-
-
         for (var i = 0; i < research_json.length; i++){
             var prerequisites = [];
             if (research_json[i]["prerequisites"]){
@@ -100,18 +85,32 @@ export const Game = () => {
                 research.completed = true;
             }
         }
-
-        /*_.each(research_web, (research) => {
-            researchCompleted.push(research)
-        });*/
-
-        console.log(research_web);
         
         researchTab.update(researchCompleted)
     }
 
 
     this.processResearch = () => {
+
+        var staff_points = 0
+
+        _.each(hiredStaff, (staff) => {
+            staff_points += staff.skill;
+        });
+
+        var funded_points = staff_points + funding;
+
+        research_points += funded_points;
+
+        console.log(research_points);
+
+        /*
+            if(funded_points >= currentResearch.cost){
+                researchTechnology(currentResearch);
+            }
+        */
+
+
         console.log("ARGH!")
         var next = [];
         for(var id in research_web) {
