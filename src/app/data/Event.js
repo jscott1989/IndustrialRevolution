@@ -97,12 +97,10 @@ function warEvent(game, date) {
     )
 }
 
-var all_events = [disputeEvent]//, disputeEvent, moleEvent, warEvent]
+var all_events = [ludditeEvent, disputeEvent, moleEvent, warEvent]
 
 var events = _.shuffle(all_events)
 var scheduled_events = []
-
-var done = false;
 
 export const selectEvent = (game, date) => {
     // First check for scheduled events
@@ -114,17 +112,12 @@ export const selectEvent = (game, date) => {
 
     scheduled_events = _.filter(scheduled_events, (x) => x[0].isAfter(date))
 
-    // 1 in 50 chance of an event happening
-    // if (Math.random() < 0.02) {
-    if (!done) {
-        if (game.getHiredStaff().length >= 2) {
-            done = true
-            let evt = events.pop();
-            if (events.length == 0) {
-                events = _.shuffle(all_events)
-            }
-            return evt(game, date)
+    if (Math.random() < 0.02) {
+        let evt = events.pop();
+        if (events.length == 0) {
+            events = _.shuffle(all_events)
         }
+        return evt(game, date)
     }
     return null
 }
