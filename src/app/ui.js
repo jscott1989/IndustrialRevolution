@@ -12,9 +12,14 @@ var popupvisible = false;
 
 
 export const initialise = () => {
+    callbackqueue = [];
+    popupqueue = [];
+    popupvisible = false;
     activeTab = "news"
     update_tabs();
     bind();
+    $('#popup').hide()
+    $('#overlay').hide()
 }
 
 

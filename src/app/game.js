@@ -53,6 +53,10 @@ export const Game = () => {
         $('#' + status + 'status').removeClass("active")
     }
 
+    this.setGameover = () => {
+        gameover = true;
+    }
+
     var age = 20;
 
     var research_web = {};
@@ -77,8 +81,11 @@ export const Game = () => {
         ui.update_stats(age, money, prestige);
         ui.refresh_time_controls(speed, isPaused)
         this.generateResearch()
+        $('.status').removeClass('active')
 
         this.tick(true)
+
+        ui.popup("Demo", "We created a lot of nice systems but had trouble pulling them together at the end into a fun game. Check out our newspaper, staff management, and research interface though :p Maybe it'll be a game one day!")
     }
 
 
