@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import * as ui from '../ui'
-import { LUDDITE_STATUS } from '../game'
+import { LUDDITE_STATUS, WAR_STATUS } from '../game'
 
 function ludditeEvent(game, date) {
     var deadline = date.clone()
@@ -41,13 +41,28 @@ function moleEvent(game, date) {
 }
 
 function warEvent(game, date) {
-    return [
-        "Naopleonic Wars demand large industrial output.",
-        "There will be increased investment in the military sector."
-    ]
+    game.setStatus(LUDDITE_STATUS)
+    var deadline = date.clone()
+    deadline.add(1, 'month')
+    var f = (game, data) => {
+        if (Math.random() > 0.2) {
+            ui.popup("War is over", "Military investment returns to normal.")
+            game.unsetStatus(WAR_STATUS)
+        } else {
+            var deadline = data.clone()
+            deadline.add(1, 'month')
+            scheduled_events.push([deadline, f])
+        }
+    }
+    scheduled_events.push([deadline, f])
+    game.setStatus(WAR_STATUS)
+    ui.popup(
+        "War!",
+        "Naopleonic Wars demand large industrial output. There will be increased investment in the military sector."
+    )
 }
 
-var all_events = [ludditeEvent]//, disputeEvent, moleEvent, warEvent]
+var all_events = [warEvent]//, disputeEvent, moleEvent, warEvent]
 
 var events = _.shuffle(all_events)
 var scheduled_events = []
