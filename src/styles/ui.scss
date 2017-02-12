@@ -308,26 +308,24 @@ input[type=range]::-webkit-slider-runnable-track {
     }
 }
 
-#financeschart {
-    width: 100%;
-    height: 200px;
-    background: blue;
-}
-
 #loans {
     margin-top:10px;
-    width: 450px;
-    height: 280px;
-    background: pink;
-    float: left;
+    width: 900px;
+    height: 100px;
+
+    table {
+        width: 100%;
+    }
 }
 
 #grants {
     margin-top:10px;
-    width: 450px;
+    width: 900px;
     height: 280px;
-    background: orange;
-    float: left;
+
+    table {
+        width: 100%;
+    }
 }
 
 /* CSS for news page
@@ -489,4 +487,27 @@ p{
 .tooltip {
     background: white;
     border: 1px solid black;
+}
+
+.skill-container {
+    width: 222px;
+    height: 20px;
+    background: black;
+
+    .skill {
+        height: 20px;
+        background: Chartreuse;
+    }
+}
+
+@for $i from 0 through 30 {
+    .skill#{$i} {
+        background: red !important;
+    }
+}
+
+@for $i from 31 through 80 {
+    .skill#{$i} {
+        background: green !important;
+    }
 }
