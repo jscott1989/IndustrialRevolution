@@ -216,6 +216,7 @@ export const Game = () => {
      * This manages the primary game loop
      */
     this.run = () => {
+        console.log("RUN", gameover)
         if (!gameover) {
             if (!isPaused) {
                 this.tick();
@@ -229,7 +230,9 @@ export const Game = () => {
             time += 1;
             var date = startDate.clone().add(time, 'days')
             ui.update_date(date)
-
+            newsTab.refresh_news(news, date, latest_discovery, prestige)
+            this.matchEvents(date)
+            this.processResearch()
             if (!first) {
                 if (date.get('date') == 1) {
                     this.payday()
@@ -244,9 +247,6 @@ export const Game = () => {
                     this.outofmoney()
                 }
             }
-            newsTab.refresh_news(news, date, researchCompleted, prestige)
-            this.matchEvents(date)
-            this.processResearch()
         }
     }
 
@@ -267,6 +267,7 @@ export const Game = () => {
 
         if (age > MAX_AGE) {
             ui.popup("You have died", "At the age of " + age + " you have died. Your prestige is " + prestige, () => {
+                console.log("Set", gameover)
                 gameover = true
                 main.gameover(prestige)
             })
@@ -382,8 +383,9 @@ export const Game = () => {
         // if (loan == 0) {
 
         // } else {
+            gameover = true;
             ui.popup("You are bankrupt", "At the age of " + age + ", you have gone bankrupt. Your prestige was " + prestige, () => {
-                gameover = true;
+                alert("DONE")
                 main.gameover(prestige)
             });
         // }

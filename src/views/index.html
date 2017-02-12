@@ -47,7 +47,7 @@
             <!-- date completed -->
             <td>{{date_completed}}</td>
             <!-- button: sell -->
-            <td><div class="sell_button clickable" data-id="{{id}}">Sell for ${{financial_value}}</div></td>
+            <td><div class="sell_button clickable tooltip-hover" data-tooltip-content="Hello" data-id="{{id}}">Sell for ${{financial_value}}</div></td>
             <!-- button: publish -->
             <td><div class="publish_button clickable" data-id="{{id}}">Publish for {{prestige_value}}</div></td>
         </tr>
@@ -108,7 +108,7 @@
                     <div class="collumn2">
 
                         <div class="newspaper-header">
-                            <span class="headline hl1">May the Force be with you</span>
+                            <span class="headline hl1" id="last-research-headline">May the Force be with you</span>
                             <p>
                                 <span class="headline hl4"></span>
                             </p>
