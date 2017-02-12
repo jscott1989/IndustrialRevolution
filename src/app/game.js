@@ -36,6 +36,7 @@ export const Game = () => {
 
     var money = 1000;
     var prestige = 0;
+    var funding = 4.08;
 
     var loan = 0;
     var gameover = false;
@@ -150,6 +151,9 @@ export const Game = () => {
         researchTab.update(researchCompleted)
     }
 
+    this.update_research_money_percentage = (percentage) => {
+        this.funding = percentage;
+    }
 
     this.processResearch = () => {
         console.log("ARGH!")
@@ -173,7 +177,7 @@ export const Game = () => {
                 }
             }
         }
-        console.log("NEXT");
+        console.log("POSSIBLY NEXT DISCOVERED");
         console.log(next);
         var random_research = next[Math.floor(Math.random() * next.length)];
         if(random_research != null)
