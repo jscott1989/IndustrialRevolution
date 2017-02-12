@@ -1,13 +1,15 @@
 const moment = require('moment')
 const _ = require('lodash')
 
-// Tom doesn't know what he's talking about
+export const LUDDITE_STATUS = "LUDDITE_STATUS"
+
 
 export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
 const startDate = moment(new Date(1796, 5, 0));
 
+import $ from 'jQuery';
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
@@ -28,11 +30,30 @@ export const Game = () => {
     
     var availableToHire = [];
     var hiredStaff = [];
+    var statuses = [];
+
+    var luddite_target = 0;
+
+    this.setLudditeTarget = (i) => luddite_target = i
+    this.getHiredStaff = () => {return hiredStaff}
+
+    this.setStatus = (status) => {
+        if (!(_.includes(statuses, status))) {
+            statuses.push(status)
+            $('#' + status + 'status').addClass("active")
+        }
+    }
+    this.statusSet = (status) => _.includes(statuses, status)
+    this.unsetStatus = (status) => {
+        _.remove(statuses, (x) => x == status)
+        $('#' + status + 'status').removeClass("active")
+    }
 
     var age = 20;
 
     var research_web = {};
     var researchCompleted = [];
+    var research_points = 0;
 
     var money = 1000;
     var prestige = 0;
@@ -41,48 +62,8 @@ export const Game = () => {
     var loan = 0;
     var gameover = false;
 
-    var news = [
-    {
-        "title": "MIRACLE CURE FOUND IN COWPOX?",
-        "subjectAndSubtitle": "Zoologist suggests that cowpox infection provides complete immunity to smallpox virus: Scientists are investigating the validity of a supposed “miracle vaccination” reported by Edward Jenner as a way to provide immunity to the dreaded disease smallpox. If confirmed by other scientists, this serum will enable a massive influx of workers back into businesses and ensure a landslide profit for chemical engineers and agricultural companies.",
-        "dates": "1796-06-01"
-    },
-    {
-        "title": "NEW TRANSPORT SYSTEM RUMORED IN CORNWALL",
-        "subjectAndSubtitle": "Horse-drawn transport has been the social norm and often a necessity for land-based travelling, but recently whispers of a “revolutionary upgrade” to the system has been heard near the residence of Cornish mining engineer Richard Trevithick. Using the relatively recently found potential of steam power, Trevithick’s invention is seemingly set to replace horses in rail-carriage movement, providing greater power and rate of movement, though the actual details in this discovery remain “hazy”, as one resident remarked.",
-        "dates": "1802-04-30"
-    },
-    {
-        "title": "FURTHER SUCCESS FOR NAPOLEON IN MILAN.",
-        "subjectAndSubtitle": "The rate of success for the recently anointed Emperor of France has Parliament both impressed and worried. After earlier victories against the Austrian armies, Napoleon has now reportedly seized both the Italian provinces of Milan and the Republic of San Marco, ensuring his strong hold over mainland Europe. Though Britain remains separated from France, the threatening shadow of the now christened French Empire has prompted many to propose the mass production of army equipment and additional research into new weapons, as the possibility of war is seemingly soon to become a certainty.",
-        "dates": "1809-11-17"
-    },
-    {
-        "title": "GWR CONSTRUCTION REPEATED",
-        "subjectAndSubtitle": "- With the sure backing of (  ), the massive national railway system has reached completion. Though the cost was inevitably enormous, the results are truly staggering. The railway stretches from London all across both the Midlands and South Western landmass of Britain, with additional connections in the south east, primarily near Hastings and Eastbourne. With mass production of the recently developed steam locomotive, this build has permanently revolutionised the national transport business.",
-        "dates": "1837-03-22"
-    },
-    {
-        "title": "NED LUDD’S “WRECKERS” GROWING IN POPULARITY",
-        "subjectAndSubtitle": "Recent group gatherings show increasing support: The recently titled “Luddites” have been found giving demonstrations all across southern England, congregating near major industrial centres such as London and Liverpool. Vocally anti-industrialist, the Luddites have claimed that the increase in technological advances undermine their altruistic intent due to the massive increase in unemployment, the main sufferers being the original factory or agricultural workers. Crowds have been encouraged to demand a reduction in use of blast furnaces and spinning wheels to allow a return to traditional work. Government officials have stated that these groups are dangerous and to be avoided, as several incidents of break-ins and sabotage of machines have been reported in London, and more are soon to follow.",
-        "dates": "1840-09-15"
-    },
-    {
-        "title": "HOT BLAST FURNACE PAVES THE WAY FOR MASSIVE TECHNOLOGICAL ADVANCE ",
-        "subjectAndSubtitle": "( ---) has stepped forward as one of the industrial pioneers of the new age as his new improvement to metal production in factories is met with acclaim from both businessmen and the Royal Academy of Science. Hot Blast takes in the air within the blast furnaces of the factory and preheats it before proper use, allowing for greater rate of production whilst simultaneously lowering necessary consumption of fuel. With this new development, this can truly be considered the new foundation of the current industrial revolution.",
-        "dates": "1826-07-10"
-    },
-    {
-        "title": "DISASTER AT AMBERLEY QUARRY",
-        "subjectAndSubtitle": "Families mourn as death toll reported to be 26: A normal working day for many soon spiralled into terror as an unnoticed build-up of natural gas ignited within the tunnels at Amberley around one-thirty on the previous Tuesday. Five men were reportedly killed immediately by the blast, the other twenty one falling victim to the falling rocks dislodged by the explosion. Eleven others are currently being treated at Arundel Community Hospital for burns and broken bones.",
-        "dates": "1851-09-05"
-    },
-    {
-        "title": "NEW SCIENTIFIC THEORIES EMERGING",
-        "subjectAndSubtitle": "Since Newton's laws of mechanics and force remain immovable as a fundamental part of physical sciences, a race has seemed to have begun among the UK's most renowned physicists. The nature of electrical and magnetic force has long been a perplexing issue, but new ideas have emerged regarding their role in the world, particularly in regard to the now commonplace theory of gravity, suggesting a role just as important, but on a scale invisible to the human eye. Should the predictions prove accurate, one may find themselves standing on a landmark in scientific discovery.",
-        "dates": "1820-02-03"
-    }
-]
+
+    var news = require("./data/news.json");
 
     this.initialise = () => {
 
@@ -107,22 +88,6 @@ export const Game = () => {
 
         var research_json = require("./data/research.json")
 
-        /*
-        
-        {
-        "id": 1,
-        "officalTitle": "Atomic Theory",
-        "overview": "New insight into the fundamental nature of matter and the potential building blocks of the Universe",
-        "date": 1805,
-        "currencyvalue": "Low",
-        "prestigevalue": "High",
-        "section": "Science"
-        }
-        */
-
-        //research_web = _.map(research_json, (research) => [
-
-
         for (var i = 0; i < research_json.length; i++){
             var prerequisites = [];
             if (research_json[i]["prerequisites"]){
@@ -141,12 +106,6 @@ export const Game = () => {
                 research.completed = true;
             }
         }
-
-        /*_.each(research_web, (research) => {
-            researchCompleted.push(research)
-        });*/
-
-        console.log(research_web);
         
         researchTab.update(researchCompleted)
     }
@@ -156,6 +115,26 @@ export const Game = () => {
     }
 
     this.processResearch = () => {
+
+        var staff_points = 0
+
+        _.each(hiredStaff, (staff) => {
+            staff_points += staff.skill;
+        });
+
+        var funded_points = staff_points + funding;
+
+        research_points += funded_points;
+
+        console.log(research_points);
+
+        /*
+            if(funded_points >= currentResearch.cost){
+                researchTechnology(currentResearch);
+            }
+        */
+
+
         console.log("ARGH!")
         var next = [];
         for(var id in research_web) {
@@ -270,7 +249,6 @@ export const Game = () => {
         }, 0)
         money -= totalCost
         ui.update_stats(age, money, prestige)
-        ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
     this.play = () => {
@@ -315,6 +293,12 @@ export const Game = () => {
         staffTab.update(availableToHire, hiredStaff)
         money -= matchingPerson.fee
         ui.update_stats(age, money, prestige)
+
+        if (this.statusSet(LUDDITE_STATUS) && hiredStaff.length >= luddite_target) {
+            // End the problem
+            this.unsetStatus(LUDDITE_STATUS)
+            ui.popup("Luddites satisfied", "Productivity has returned to normal.")
+        }
     }
 
     this.fire = (id) => {

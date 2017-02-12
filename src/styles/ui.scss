@@ -60,6 +60,7 @@
 .timecontrol {
     float: left;
     margin-left: 10px;
+    color: white;
 
     &:hover {
         color: gray;
@@ -454,4 +455,35 @@ p{
 
 .stats {
     color: #FFF;
+}
+
+#statuses {
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.status {
+    text-align: center;
+    width: 100px;
+    color: #FFF;
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.status img {
+    width: 60px;
+    height: 60px;
+}
+
+.status div {
+    width: 100px;
+    text-align: center;
+}
+
+.tooltip {
+    background: white;
+    border: 1px solid black;
 }
