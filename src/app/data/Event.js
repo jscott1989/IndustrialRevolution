@@ -81,7 +81,6 @@ function warEvent(game, date) {
     var deadline = date.clone()
     deadline.add(1, 'month')
     var f = (game, date) => {
-        alert("war")
         if (Math.random() > 0.2) {
             ui.popup("War is over", "Military investment returns to normal.")
             game.unsetStatus(WAR_STATUS)

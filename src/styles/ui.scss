@@ -490,3 +490,26 @@ p{
     background: white;
     border: 1px solid black;
 }
+
+.skill-container {
+    width: 222px;
+    height: 20px;
+    background: black;
+
+    .skill {
+        height: 20px;
+        background: Chartreuse;
+    }
+}
+
+@for $i from 0 through 30 {
+    .skill#{$i} {
+        background: red !important;
+    }
+}
+
+@for $i from 31 through 80 {
+    .skill#{$i} {
+        background: green !important;
+    }
+}
