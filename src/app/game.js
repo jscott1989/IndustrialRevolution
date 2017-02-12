@@ -29,7 +29,7 @@ export const Game = () => {
 
     var age = 20;
 
-    var research_web = [];
+    var research_web = {};
     var researchCompleted = [];
 
     var money = 1000;
@@ -79,7 +79,7 @@ export const Game = () => {
         //research_web = _.map(research_json, (research) => [
 
 
-        /*for (var i = 0; i < research_json.length; i++){
+        for (var i = 0; i < research_json.length; i++){
             var prerequisites = [];
             if (research_json[i]["prerequisites"]){
                 if (typeof research_json[i]["prerequisites"] === "string"){
@@ -90,32 +90,55 @@ export const Game = () => {
                 }
             }
 
-            research_web.push(new Research(research_json[i]["id"], research_json[i]["officialTitle"], research_json[i]["overview"], 0, research_json[i]["date"], 0, 0, 0, prerequisites));
-
+            var research = new Research(research_json[i]["id"], research_json[i]["officialTitle"], research_json[i]["overview"], research_json[i]["section"], 0, research_json[i]["date"], 0, 0, 0, prerequisites);
+            research_web[research.id] = research;
+            if(research.id == 1) {
+                researchCompleted.push(research);
+                research.completed = true;
+            }
         }
 
-        _.each(research_web, (research) => {
+        /*_.each(research_web, (research) => {
             researchCompleted.push(research)
         });*/
 
-        
-        
-        researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2], true, 0,-100))
-        researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3], true, -95,-31))
-        researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4], true, -59, 81))
-        researchCompleted.push(new Research(4,"Military", "", 100, 7, 1780, 1000000, 0.5, [5], true, 59, 81))
-        researchCompleted.push(new Research(5,"Natural Sciences", "", 100, 1780, 7, 1000000, 0.5, [1], true, 95, -31))
-
-        researchCompleted.push(new Research(6,"More Industry", "", 100, 1780, 7, 1000000, 0.5, [1]))
-        researchCompleted.push(new Research(8,"Most Industry", "", 100, 1780, 7, 1000000, 0.5, [6]))
-        researchCompleted.push(new Research(9,"Much Industry", "", 100, 1780, 7, 1000000, 0.5, [8]))
-        researchCompleted.push(new Research(7,"Surgery", "", 100, 1780, 7, 1000000, 0.5, [3]))
-        researchTab.update(researchCompleted)
-        /**/
-
-        console.log(researchCompleted);
+        console.log(research_web);
         
         researchTab.update(researchCompleted)
+    }
+
+
+    this.processResearch = () => {
+        console.log("ARGH!")
+        var next = [];
+        for(var id in research_web) {
+            console.log("ID: "+id);
+            var research = research_web[id];
+            if(!research.completed) {
+                // if prerequisites are empty, possibly discover this
+                if(research.prerequisites.length == 0) {
+                    next.push(research);
+                } else {
+                // if a prerequisite is completed, possibly discover this
+                    for(var i=0; i < research.prerequisites.length; i++){
+                        var pre = research_web[research.prerequisites[i]];
+                        if(pre.completed) {
+                            next.push(research);
+                            break;  // only need to add this once if a prereq is completed
+                        }
+                    } 
+                }
+            }
+        }
+        console.log("NEXT");
+        console.log(next);
+        var random_research = next[Math.floor(Math.random() * next.length)];
+        if(random_research != null)
+            random_research.completed = true;
+
+        researchCompleted.push(random_research);
+
+        researchTab.update(researchCompleted);
     }
 
     /**
@@ -148,6 +171,7 @@ export const Game = () => {
             this.outofmoney()
         }
         this.matchEvents(date)
+        this.processResearch()
     }
 
     this.matchEvents = (date) => {
