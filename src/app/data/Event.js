@@ -33,7 +33,9 @@ function disputeEvent(game, date) {
         var deadline = date.clone()
         deadline.add(1, 'day')
         var f = (game, date) => {
-
+            if (!(game.statusSet(DISPUTE_STATUS))) {
+                return ;
+            }
             if (Math.random() > 0.95) {
                 ui.popup("End of dispute", rest_staff.join(", ") + " and " + staffB.name + " have resolved their differences.")
                 game.unsetStatus(DISPUTE_STATUS)

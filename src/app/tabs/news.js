@@ -9,7 +9,7 @@ const MID_HIGH_PRESTIGE = 20;
 
 var current_news = {"date": "1995-12-25", "title": "LALA", "subjectAndSubtitle": "BOO"}
 
-export const refresh_news = (news, date, researchCompleted, prestige) => {
+export const refresh_news = (news, date, latest_discovery, prestige) => {
     if (date.isSame(moment(news[0].dates), 'day')) {
         current_news = news.shift(0)
         $("#news-headline").text(current_news.title)
@@ -36,6 +36,14 @@ export const refresh_news = (news, date, researchCompleted, prestige) => {
 
     $('#reputation-headline').text(rep_headline)
     $('#reputation-content').text(rep_content)
+
+    if (latest_discovery == null) {
+        $("#last-research-headline").text("")
+        $("#last-research-content").text("")
+    } else {
+        $("#last-research-headline").text(latest_discovery.name)
+        $("#last-research-content").text(latest_discovery.description)
+    }
 
 
 }
