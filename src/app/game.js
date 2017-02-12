@@ -2,6 +2,7 @@ const moment = require('moment')
 const _ = require('lodash')
 
 export const LUDDITE_STATUS = "LUDDITE_STATUS"
+export const WAR_STATUS = "WAR_STATUS"
 
 
 export const MAX_AGE = 45
@@ -118,7 +119,7 @@ export const Game = () => {
             staff_points += staff.skill;
         });
 
-        var funded_points = staff_points + funding;
+        var funded_points = staff_points// + funding;
 
         research_points += funded_points;
 
