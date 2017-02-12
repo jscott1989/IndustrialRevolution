@@ -10,8 +10,8 @@ export function Person(id, avatar, name, age, skill) {
     this.name = name
     this.age = age
     this.skill = skill
-    this.fee = stochasm({kind:"integer", mean: this.skill * 2.2, stdev: 5, min: 10, max: 100}).next()
-    this.salary = stochasm({kind:"integer", mean: this.skill * 0.5, stdev: 5, min: 10, max: 100}).next()
+    this.salary = stochasm({kind:"integer", mean: this.skill, stdev: 15, min: 20, max: 90}).next()
+    this.fee = Math.round(this.salary * stochasm({kind:"float", mean: 3, stdev: 0.5, min: 2.5, max: 3.5}).next())
 
     return this
 }
