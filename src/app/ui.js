@@ -87,9 +87,8 @@ var callbackqueue = [];
 var popupqueue = [];
 
 export const popup = (title, content, callback) => {
-    alert(title)
     if (popupvisible) {
-        popupqueue.push([title, content, cellback])
+        popupqueue.push([title, content, callback])
     } else {
         callbackqueue.push(callback);
         game.pause();
