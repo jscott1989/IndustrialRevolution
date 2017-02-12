@@ -120,6 +120,8 @@ export const bind = () => {
   		$('#slider_background').css("height",v);
 
       var percentage = (v/238*10.0);
+      if(percentage < 0.05) percentage = 0;
+      if(percentage > 9.85) percentage = 10;
       var str_percentage = Math.round(percentage * 100)/100
       $('#research_money_proportion_label').text(str_percentage+"% of balance");
 
