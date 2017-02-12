@@ -11,6 +11,7 @@ const startDate = moment(new Date(1796, 5, 0));
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
+import { selectEvent } from "./data/Event"
 import * as researchTab from './tabs/research';
 import { Research } from "./data/Research"
 import * as main from './main'
@@ -38,10 +39,6 @@ export const Game = () => {
 
     var loan = 0;
     var gameover = false;
-
-    var events = [
-        
-    ]
 
     var news = [
     {
@@ -200,14 +197,7 @@ export const Game = () => {
     }
 
     this.matchEvents = (date) => {
-        if (events.length > 0) {
-            if (events[0][0] <= date) {
-                // The event happens
-                ui.popup(events[0][1], events[0][2], () => {
-                    events.shift(0);
-                });
-            }
-        }
+        var event = selectEvent(this, date)
     }
 
     this.startofweek = () => {
