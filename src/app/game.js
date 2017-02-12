@@ -183,8 +183,8 @@ export const Game = () => {
         for(var i=0; i < next.length; i++) {
             var research = next[i];
             var price = Math.min((research_points/next.length), research_points);
-            //research.progress = research.progress + price;
-            //research_points = research_points - price;
+            research.progress = research.progress + price;
+            research_points = research_points - price;
 
             // check for discovery
             if(research.progress >= research.cost) {
