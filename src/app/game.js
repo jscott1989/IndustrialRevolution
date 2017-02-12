@@ -225,27 +225,29 @@ export const Game = () => {
     }
 
     this.tick = (first) => {
-        time += 1;
-        var date = startDate.clone().add(time, 'days')
-        ui.update_date(date)
+        if (!gameover) {
+            time += 1;
+            var date = startDate.clone().add(time, 'days')
+            ui.update_date(date)
 
-        if (!first) {
-            if (date.get('date') == 1) {
-                this.payday()
+            if (!first) {
+                if (date.get('date') == 1) {
+                    this.payday()
+                }
+                if (date.day() == 0) {
+                    this.startofweek()
+                }
+                if (date.dayOfYear() == 1) {
+                    this.startofyear()
+                }
+                if (money < 0) {
+                    this.outofmoney()
+                }
             }
-            if (date.day() == 0) {
-                this.startofweek()
-            }
-            if (date.dayOfYear() == 1) {
-                this.startofyear()
-            }
-            if (money < 0) {
-                this.outofmoney()
-            }
+            newsTab.refresh_news(news, date, researchCompleted, prestige)
+            this.matchEvents(date)
+            this.processResearch()
         }
-        newsTab.refresh_news(news, date, researchCompleted, prestige)
-        this.matchEvents(date)
-        this.processResearch()
     }
 
     this.matchEvents = (date) => {
