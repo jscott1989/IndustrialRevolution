@@ -124,6 +124,7 @@ export const Game = () => {
 
         research_points += staff_points;
 
+        var date = startDate.clone().add(time, 'days')
         if (date.get('date') == 1) {
             research_points += money * (funding / 100)
         }
