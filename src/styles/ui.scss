@@ -308,26 +308,24 @@ input[type=range]::-webkit-slider-runnable-track {
     }
 }
 
-#financeschart {
-    width: 100%;
-    height: 200px;
-    background: blue;
-}
-
 #loans {
     margin-top:10px;
-    width: 450px;
-    height: 280px;
-    background: pink;
-    float: left;
+    width: 900px;
+    height: 100px;
+
+    table {
+        width: 100%;
+    }
 }
 
 #grants {
     margin-top:10px;
-    width: 450px;
+    width: 900px;
     height: 280px;
-    background: orange;
-    float: left;
+
+    table {
+        width: 100%;
+    }
 }
 
 /* CSS for news page
