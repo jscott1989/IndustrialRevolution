@@ -12,7 +12,7 @@ import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
 import * as researchTab from './tabs/research';
-import { Research, generateResearch } from "./data/Research"
+import { Research } from "./data/Research"
 import * as main from './main'
 
 /**
@@ -79,9 +79,9 @@ export const Game = () => {
         //research_web = _.map(research_json, (research) => [
 
 
-        for (var i = 0; i < research_json.length; i++){
+        /*for (var i = 0; i < research_json.length; i++){
             var prerequisites = [];
-            if (typeof research_json[i]["prerequisites"]){
+            if (research_json[i]["prerequisites"]){
                 if (typeof research_json[i]["prerequisites"] === "string"){
                     prerequisites = research_json[i]["prerequisites"].split(",")
                 }
@@ -96,12 +96,10 @@ export const Game = () => {
 
         _.each(research_web, (research) => {
             researchCompleted.push(research)
-        });
+        });*/
 
-        console.log(researchCompleted);
         
-        researchTab.update(researchCompleted)
-        /*
+        
         researchCompleted.push(new Research(1,"Industrial", "", 100, 1780, 7, 1000000, 0.5, [2], true, 0,-100))
         researchCompleted.push(new Research(2,"Agricultural", "", 100, 1780, 7, 1000000, 0.5, [3], true, -95,-31))
         researchCompleted.push(new Research(3,"Medical", "", 100, 7, 1780, 1000000, 0.5, [4], true, -59, 81))
@@ -113,7 +111,11 @@ export const Game = () => {
         researchCompleted.push(new Research(9,"Much Industry", "", 100, 1780, 7, 1000000, 0.5, [8]))
         researchCompleted.push(new Research(7,"Surgery", "", 100, 1780, 7, 1000000, 0.5, [3]))
         researchTab.update(researchCompleted)
-        */
+        /**/
+
+        console.log(researchCompleted);
+        
+        researchTab.update(researchCompleted)
     }
 
     /**
