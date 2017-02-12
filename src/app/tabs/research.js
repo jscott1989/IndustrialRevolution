@@ -42,10 +42,12 @@ export const update = (researchCompleted) => {
 
       nodes = _.map(researchCompleted, (research) => {
       	  var hidden = !research.completed;
-      	  if(research.start_x != null && research.start_y != null)
+      	  /*if(research.start_x != null && research.start_y != null)
 	      	  return {x:research.start_x,y:research.start_y,id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg', hidden: hidden}
   		  else
               return {id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg', hidden: hidden}
+          */
+          return {id: research.id, label: research.name, shape: 'circularImage', image: DIR + research.name + '.png', brokenImage: DIR + 'tech.jpeg'}
       });
 
       // create connections between people
@@ -83,6 +85,7 @@ export const update = (researchCompleted) => {
       	}
       }
       //console.log(edges);
+      console.log(nodes);
 
       // create a network
       var container = document.getElementById('research_tech_tree');
@@ -137,5 +140,11 @@ export const bind = () => {
     })
 	$(document).on("click", '.publish_button', (a) => {
         game.publish($(a.currentTarget).data("id"));
+    })
+	$(document).on("input", '#research_slide_control', (a) => {
+		var v = a.currentTarget.value;
+		$('#slider_background').css("padding-top",238-v);
+		$('#slider_background').css("height",v);
+        //game.update_money_slider(a);
     })
 }
