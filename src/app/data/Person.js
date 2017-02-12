@@ -29,7 +29,7 @@ export const generatePerson = () => {
 var i = 1;
 function getAvatar(){
 	i = i + 1;
-    if (i > 45) {
+    if (i > 44) {
         i= 1;
     }
     return i;

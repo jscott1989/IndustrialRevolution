@@ -38,7 +38,7 @@ function disputeEvent(game, date) {
                 ui.popup("End of dispute", rest_staff.join(", ") + " and " + staffB.name + " have resolved their differences.")
                 game.unsetStatus(DISPUTE_STATUS)
             } else {
-                if (game.getHiredStaff().length > disputing_staff.length && Math.random() > 0.4) {
+                if (game.getHiredStaff().length > disputing_staff.length && Math.random() > 0.2) {
                     var new_staff = _.shuffle(_.filter(game.getHiredStaff(), (x) => !(_.includes(disputing_staff, x))))[0]
                     disputing_staff.push(new_staff);
                     game.setDisputingStaff(disputing_staff)
@@ -46,7 +46,7 @@ function disputeEvent(game, date) {
                         new_staff.name + " joins the dispute",
                         new_staff.name + " has joined the dispute between " + rest_staff.join(", ") + " and " + staffB.name + ". You must resolve this or face further unrest."
                     )
-                    rest_staff.push(new_staff)
+                    rest_staff.push(new_staff.name)
                 }
                 var deadline = date.clone()
                 deadline.add(1, 'day')
@@ -97,12 +97,10 @@ function warEvent(game, date) {
     )
 }
 
-var all_events = [disputeEvent]//, disputeEvent, moleEvent, warEvent]
+var all_events = [ludditeEvent, disputeEvent, moleEvent, warEvent]
 
 var events = _.shuffle(all_events)
 var scheduled_events = []
-
-var done = false;
 
 export const selectEvent = (game, date) => {
     // First check for scheduled events
@@ -114,17 +112,12 @@ export const selectEvent = (game, date) => {
 
     scheduled_events = _.filter(scheduled_events, (x) => x[0].isAfter(date))
 
-    // 1 in 50 chance of an event happening
-    // if (Math.random() < 0.02) {
-    if (!done) {
-        if (game.getHiredStaff().length >= 2) {
-            done = true
-            let evt = events.pop();
-            if (events.length == 0) {
-                events = _.shuffle(all_events)
-            }
-            return evt(game, date)
+    if (Math.random() < 0.02) {
+        let evt = events.pop();
+        if (events.length == 0) {
+            events = _.shuffle(all_events)
         }
+        return evt(game, date)
     }
     return null
 }
