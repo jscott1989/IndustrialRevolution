@@ -21,25 +21,6 @@ export const update = (researchCompleted) => {
     var edges = [];
     var network = null;
 
-    /*nodes = [
-        {id: 1,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 2,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 3,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 4,  shape: 'circularImage', image: DIR + 'tech.jpeg', label:"pictures by this guy!"},
-        {id: 5,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 6,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 7,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 8,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 9,  shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 10, shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 11, shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 12, shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 13, shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 14, shape: 'circularImage', image: DIR + 'tech.jpeg'},
-        {id: 15, shape: 'circularImage', image: DIR + 'tech.jpeg', brokenImage: DIR + 'tech.jpeg', label:"when images\nfail\nto load"},
-        {id: 16, shape: 'circularImage', image: DIR + 'tech.jpeg', brokenImage: DIR + 'tech.jpeg', label:"fallback image in action"}
-      ];*/
-
       nodes = _.map(researchCompleted, (research) => {
       	  var hidden = !research.completed;
       	  /*if(research.start_x != null && research.start_y != null)
@@ -69,14 +50,6 @@ export const update = (researchCompleted) => {
         {from: 13, to: 14},
         {from: 9, to: 16}
       ];*/
-      /*edges = _.reduce(researchCompleted, (research) => {
-      	console.log(research.prerequisites)
-          var stuff = _.map(research.prerequisites, (prerequisite) => {
-          	  console.log(prerequisite)
-              return {from: research.id, to: prerequisite}
-          })
-      	  return stuff
-      });*/
       for(var i=0; i<researchCompleted.length; i++) {
       	var research = researchCompleted[i];
       	for(var j=0; j<research.prerequisites.length; j++) {
@@ -142,9 +115,9 @@ export const bind = () => {
         game.publish($(a.currentTarget).data("id"));
     })
 	$(document).on("input", '#research_slide_control', (a) => {
-		var v = a.currentTarget.value;
-		$('#slider_background').css("padding-top",238-v);
-		$('#slider_background').css("height",v);
-        //game.update_money_slider(a);
+  		var v = a.currentTarget.value;
+  		$('#slider_background').css("padding-top",238-v);
+  		$('#slider_background').css("height",v);
+      //game.update_money_slider(a);
     })
 }
