@@ -1,13 +1,15 @@
 const moment = require('moment')
 const _ = require('lodash')
 
-// Tom doesn't know what he's talking about
+export const LUDDITE_STATUS = "LUDDITE_STATUS"
+
 
 export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
 const startDate = moment(new Date(1796, 5, 0));
 
+import $ from 'jQuery';
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
@@ -28,6 +30,24 @@ export const Game = () => {
     
     var availableToHire = [];
     var hiredStaff = [];
+    var statuses = [];
+
+    var luddite_target = 0;
+
+    this.setLudditeTarget = (i) => luddite_target = i
+    this.getHiredStaff = () => {return hiredStaff}
+
+    this.setStatus = (status) => {
+        if (!(_.includes(statuses, status))) {
+            statuses.push(status)
+            $('#' + status + 'status').addClass("active")
+        }
+    }
+    this.statusSet = (status) => _.includes(statuses, status)
+    this.unsetStatus = (status) => {
+        _.remove(statuses, (x) => x == status)
+        $('#' + status + 'status').removeClass("active")
+    }
 
     var age = 20;
 
@@ -242,7 +262,6 @@ export const Game = () => {
         }, 0)
         money -= totalCost
         ui.update_stats(age, money, prestige)
-        ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
     this.play = () => {
@@ -287,6 +306,12 @@ export const Game = () => {
         staffTab.update(availableToHire, hiredStaff)
         money -= matchingPerson.fee
         ui.update_stats(age, money, prestige)
+
+        if (this.statusSet(LUDDITE_STATUS) && hiredStaff.length >= luddite_target) {
+            // End the problem
+            this.unsetStatus(LUDDITE_STATUS)
+            ui.popup("Luddites satisfied", "Productivity has returned to normal.")
+        }
     }
 
     this.fire = (id) => {

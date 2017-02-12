@@ -1,4 +1,5 @@
 require("../styles/main.scss")
+import isotip from "isotip"
 import { Game } from "./game"
 import { initialise } from "./ui"
 export var game
@@ -14,5 +15,7 @@ export const newgame = () => {
     initialise()
     game.run()
 }
+
+isotip.init();
 
 newgame()
