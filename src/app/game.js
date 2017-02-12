@@ -98,9 +98,11 @@ export const Game = () => {
             staff_points += staff.skill;
         });
 
-        var funded_points = staff_points + funding;
+        research_points += staff_points;
 
-        research_points += funded_points;
+        if (date.get('date') == 1) {
+            research_points += money * (funding / 100)
+        }
 
         console.log(research_points);
 
@@ -224,6 +226,7 @@ export const Game = () => {
             return sum + n.salary
         }, 0)
         money -= totalCost
+        money -= money * (funding / 100) //Minus funding bonus
         ui.update_stats(age, money, prestige)
         ui.popup("Payday", "You paid your staff $" + totalCost)
     }
