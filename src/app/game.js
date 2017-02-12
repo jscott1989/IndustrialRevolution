@@ -60,9 +60,9 @@ export const Game = () => {
     var research_points = 0;
     var latest_discovery = null;
 
-    var money = 1000;
+    var money = 300;
     var prestige = 0;
-    var funding = 4.08;
+    var funding = 0;
 
     var loan = 0;
     var gameover = false;
@@ -73,7 +73,7 @@ export const Game = () => {
     this.initialise = () => {
 
 
-        this.generateHires(20)
+        this.generateHires(12)
         ui.update_stats(age, money, prestige);
         ui.refresh_time_controls(speed, isPaused)
         this.generateResearch()
@@ -104,14 +104,11 @@ export const Game = () => {
                 }
             }
 
-            var currencyMap = {'Low': 250, 'Medium': 500, 'High': 1000};
-            var cost = currencyMap[research_json[i]["currencyvalue"]];
-
             var research = new Research(    research_json[i]["id"], 
                                             research_json[i]["officialTitle"], 
                                             research_json[i]["overview"], 
                                             research_json[i]["section"], 
-                                            cost, 
+                                            research_json[i]["cost"], 
                                             research_json[i]["date"], 
                                             research_json[i]["prestigevalue"], // prestige
                                             research_json[i]["currencyvalue"], // finance
@@ -216,7 +213,7 @@ export const Game = () => {
      * This manages the primary game loop
      */
     this.run = () => {
-        console.log("RUN", gameover)
+        //console.log("RUN", gameover)
         if (!gameover) {
             if (!isPaused) {
                 this.tick();
