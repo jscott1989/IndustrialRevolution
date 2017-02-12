@@ -34,7 +34,9 @@ export const Game = () => {
     var statuses = [];
 
     var luddite_target = 0;
+    var disputing_staff = [];
 
+    this.setDisputingStaff = (i) => disputing_staff = i
     this.setLudditeTarget = (i) => luddite_target = i
     this.getHiredStaff = () => {return hiredStaff}
 
