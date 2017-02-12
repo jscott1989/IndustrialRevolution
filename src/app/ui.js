@@ -6,7 +6,8 @@ import * as staffTab from './tabs/staff';
 // UI State
 var activeTab = "news";
 
-var popupCallback;
+
+var popupvisible = false;
 
 
 export const initialise = () => {
@@ -67,7 +68,6 @@ export const refresh_time_controls = (speed, isPaused) => {
     }
 }
 
-
 const update_tabs = () => {
     $(".tab").removeClass("active");
     $("#" + activeTab + "tab").addClass("active");
@@ -81,20 +81,35 @@ export const update_stats = (age, money, prestige) => {
     $('#prestige').text(prestige)
 }
 
+var callbackqueue = [];
+var popupqueue = [];
+
 export const popup = (title, content, callback) => {
-    popupCallback = callback;
-    game.pause();
-    $('#popup .title').text(title)
-    $('#popup .content').text(content)
-    $('#overlay').show()
-    $('#popup').show()
+    alert(title)
+    if (popupvisible) {
+        popupqueue.push([title, content, cellback])
+    } else {
+        callbackqueue.push(callback);
+        game.pause();
+        $('#popup .title').text(title)
+        $('#popup .content').text(content)
+        $('#overlay').show()
+        $('#popup').show()
+        popupvisible = true;
+    }
 }
 
 const popup_okay = () => {
+    popupvisible = false;
+    if (popupqueue.length > 0) {
+        var p = popupqueue.pop();
+        popup(p[0], p[1], p[2])
+    }
     game.unpause();
-    $('#overlay').hide()
     $('#popup').hide()
-    if (popupCallback != null) {
-        popupCallback();
+    $('#overlay').hide()
+    while (popupqueue.length > 0) {
+        popupqueue.pop()()
+
     }
 }

@@ -7,12 +7,13 @@
     <script id="hireable-person-template" type="text/x-handlebars-template">
         <tr class="person">
             <td class="photo">
-                <img src="/assets/{{avatar}}.png" />
+                <img src="/assets/people/{{avatar}}.png" />
             </td>
             <td class="info">
                 <div><strong>{{name}}</strong> ({{age}})</div>
                 <div>Skill {{skill}}</div>
-                <div>Fee {{fee}} Salary {{salary}}</div>
+                <div>Fee {{fee}} </div>
+                <div>Salary {{salary}}</div>
             </td>
             <td class="hire">
                 <div class="hire_button clickable" data-id="{{id}}">
@@ -24,7 +25,7 @@
     <script id="staff-person-template" type="text/x-handlebars-template">
         <tr class="person">
             <td class="photo">
-                <img src="/assets/{{avatar}}.png" />
+                <img src="/assets/people/{{avatar}}.png" />
             </td>
             <td class="info">
                 <div><strong>{{name}}</strong> ({{age}})</div>
@@ -79,7 +80,84 @@
         </div>
 
         <div id="content">
-            <div class="tab_content" id="tabnews">NEWS</div>
+            <div class="tab_content" id="tabnews">
+
+                <div class="newspaper-header">
+
+                    <header> Daily News </header>
+                    <div class="subhead">York, NYC - Friday August 30, 1878</div>
+
+                </div>
+                <div class="newsContent">
+                    <div class="collumn1">
+
+                        <div class="newspaper-header">
+                            <span class="headline hl1">When darkness overspreads my eyes</span>
+                            <p>
+                                <span class="headline hl4">by JOHANN WOLFGANG VON GOETHE</span>
+                            </p>
+                        </div>
+                          
+                        <figure class="figure" id="alignright">
+                            <img class="media" src="/assets/people/1.png", width="100px", height="100px">
+                            <figcaption class="figcaption">Foo bar xyz.</figcaption>
+                        </figure>
+
+                        When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+
+                        <p>and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath of that universal love which bears and sustains us, as it floats around us in an eternity of bliss.</p>
+                        
+                    </div>
+
+                    <div class="collumn2">
+
+                        <div class="newspaper-header">
+                            <span class="headline hl1">May the Force be with you</span>
+                            <p>
+                                <span class="headline hl4">by JOHANN WOLFGANG VON GOETHE</span>
+                            </p>
+                        </div>
+                          
+                        <figure class="figure" id="alignleft">
+                            <img class="media" src="/assets/people/33.png", width="100px", height="100px">
+                            <figcaption class="figcaption">Foo bar xyz.</figcaption>
+                        </figure>
+
+                        When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+
+                        <p>and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath of that universal love which bears and sustains us, as it floats around us in an eternity of bliss.</p>
+                        
+                    </div>
+
+                    <div class="collumn2">
+
+                        <div class="newspaper-header">
+                            <span class="headline hl1">It wasn't a dream</span>
+                            <p>
+                                <span class="headline hl4">by JOHANN WOLFGANG VON GOETHE</span>
+                            </p>
+                        </div>
+                          
+                        <figure class="figure" id="alignright">
+                            <img class="media" src="/assets/people/25.png", width="100px", height="100px">
+                            <figcaption class="figcaption">Foo bar xyz.</figcaption>
+                        </figure>
+
+                        When, while the lovely valley teems with vapour around me, and the meridian sun strikes the upper surface of the impenetrable foliage of my trees, and but a few stray gleams steal into the inner sanctuary, I throw myself down among the tall grass by the trickling stream;
+
+                        <p>and, as I lie close to the earth, a thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath of that universal love which bears and sustains us, as it floats around us in an eternity of bliss.</p>
+                        
+                    </div>
+
+                </div>
+                
+                
+
+
+            </div>
+            
+
+
             <div class="tab_content" id="tabstaff">
                 <h2>Applicants</h2>
                 <h2>Your Staff</h2>
@@ -115,21 +193,21 @@
                     <h2>Loans</h2>
                     <table>
                         <tr>
-                            <td>Provider1</td>
-                            <td>$1000</td>
-                            <td>5% per month</td>
+                            <td>P1<br />
+                            $1000 (5%/month)
+                            </td>
                             <td>Take Loan...</td>
                         </tr>
                         <tr>
-                            <td>Provider2</td>
-                            <td>$10000</td>
-                            <td>10% per month</td>
+                            <td>P1<br />
+                            $1000 (5%/month)
+                            </td>
                             <td>Take Loan...</td>
                         </tr>
                         <tr>
-                            <td>Provider3</td>
-                            <td>$100000</td>
-                            <td>12% per month</td>
+                            <td>P1<br />
+                            $1000 (5%/month)
+                            </td>
                             <td>Take Loan...</td>
                         </tr>
                     </table>
