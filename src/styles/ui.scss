@@ -191,8 +191,9 @@ html, body {
 }
 
 #research_sliders {
-    background-color: red;
-    width: 200px;
+    /*background-color: red;*/
+    padding-left: 50px;
+    width: 150px;
     height: 400px;
     float: left;
     position: relative;
@@ -206,7 +207,7 @@ html, body {
     width: 238px;*/
     position: absolute;
     top: 72px;
-    left: -76px;
+    left: -27px;
     width: 238px;
 }
 #slider_background {
