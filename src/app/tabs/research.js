@@ -118,6 +118,11 @@ export const bind = () => {
   		var v = a.currentTarget.value;
   		$('#slider_background').css("padding-top",238-v);
   		$('#slider_background').css("height",v);
-      //game.update_money_slider(a);
+
+      var percentage = (v/238*10.0);
+      var str_percentage = Math.round(percentage * 100)/100
+      $('#research_money_proportion_label').text(str_percentage+"% of balance");
+
+      game.update_research_money_percentage(a);
     })
 }

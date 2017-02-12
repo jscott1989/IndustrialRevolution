@@ -58,6 +58,7 @@ export const Game = () => {
 
     var money = 1000;
     var prestige = 0;
+    var funding = 4.08;
 
     var loan = 0;
     var gameover = false;
@@ -110,6 +111,9 @@ export const Game = () => {
         researchTab.update(researchCompleted)
     }
 
+    this.update_research_money_percentage = (percentage) => {
+        this.funding = percentage;
+    }
 
     this.processResearch = () => {
 
@@ -119,9 +123,12 @@ export const Game = () => {
             staff_points += staff.skill;
         });
 
-        var funded_points = staff_points// + funding;
+        research_points += staff_points;
 
-        research_points += funded_points;
+        var date = startDate.clone().add(time, 'days')
+        if (date.get('date') == 1) {
+            research_points += money * (funding / 100)
+        }
 
         console.log(research_points);
 
@@ -153,7 +160,7 @@ export const Game = () => {
                 }
             }
         }
-        console.log("NEXT");
+        console.log("POSSIBLY NEXT DISCOVERED");
         console.log(next);
         var random_research = next[Math.floor(Math.random() * next.length)];
         if(random_research != null)
@@ -245,6 +252,7 @@ export const Game = () => {
             return sum + n.salary
         }, 0)
         money -= totalCost
+        money -= money * (funding / 100) //Minus funding bonus
         ui.update_stats(age, money, prestige)
     }
 
