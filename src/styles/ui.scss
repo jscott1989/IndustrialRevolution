@@ -3,7 +3,7 @@
     height: 768px;
     margin:auto;
     /*background:green;*/
-    background-image: url("/assets/background/granite.jpg");
+    background-image: url("/assets/background/wood.jpg");
 }
 
 #newsfeed {
@@ -49,6 +49,7 @@
 #time {
     padding-top: 10px;
     text-align: center;
+    color: #fff;
 }
 
 #timecontrols {
@@ -208,9 +209,11 @@ html, body {
 }
 #slider_background {
     width: 89px;
-    height: 238px;
+    /*height: 238px;*/
     background-image: url('/assets/coins.png');
     background-clip: content-box;
+    padding-top: 141px;
+    height: 97px;
 }
 /* https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
 input[type=range] {
@@ -449,4 +452,6 @@ p{
   border-left: 2px solid #2f2f2f;
 }
 
-
+.stats {
+    color: #FFF;
+}
