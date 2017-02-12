@@ -1,13 +1,15 @@
 const moment = require('moment')
 const _ = require('lodash')
 
-// Tom doesn't know what he's talking about
+export const LUDDITE_STATUS = "LUDDITE_STATUS"
+
 
 export const MAX_AGE = 45
 export const NORMAL_SPEED = 1000
 export const FAST_SPEED = 500
 const startDate = moment(new Date(1796, 5, 0));
 
+import $ from 'jQuery';
 import * as ui from './ui'
 import * as staffTab from './tabs/staff';
 import { generatePerson } from "./data/Person"
@@ -28,6 +30,24 @@ export const Game = () => {
     
     var availableToHire = [];
     var hiredStaff = [];
+    var statuses = [];
+
+    var luddite_target = 0;
+
+    this.setLudditeTarget = (i) => luddite_target = i
+    this.getHiredStaff = () => {return hiredStaff}
+
+    this.setStatus = (status) => {
+        if (!(_.includes(statuses, status))) {
+            statuses.push(status)
+            $('#' + status + 'status').addClass("active")
+        }
+    }
+    this.statusSet = (status) => _.includes(statuses, status)
+    this.unsetStatus = (status) => {
+        _.remove(statuses, (x) => x == status)
+        $('#' + status + 'status').removeClass("active")
+    }
 
     var age = 20;
 
@@ -37,6 +57,7 @@ export const Game = () => {
 
     var money = 1000;
     var prestige = 0;
+    var funding = 4.08;
 
     var loan = 0;
     var gameover = false;
@@ -89,6 +110,9 @@ export const Game = () => {
         researchTab.update(researchCompleted)
     }
 
+    this.update_research_money_percentage = (percentage) => {
+        this.funding = percentage;
+    }
 
     this.processResearch = () => {
 
@@ -134,7 +158,7 @@ export const Game = () => {
                 }
             }
         }
-        console.log("NEXT");
+        console.log("POSSIBLY NEXT DISCOVERED");
         console.log(next);
         var random_research = next[Math.floor(Math.random() * next.length)];
         if(random_research != null)
@@ -228,7 +252,6 @@ export const Game = () => {
         money -= totalCost
         money -= money * (funding / 100) //Minus funding bonus
         ui.update_stats(age, money, prestige)
-        ui.popup("Payday", "You paid your staff $" + totalCost)
     }
 
     this.play = () => {
@@ -273,6 +296,12 @@ export const Game = () => {
         staffTab.update(availableToHire, hiredStaff)
         money -= matchingPerson.fee
         ui.update_stats(age, money, prestige)
+
+        if (this.statusSet(LUDDITE_STATUS) && hiredStaff.length >= luddite_target) {
+            // End the problem
+            this.unsetStatus(LUDDITE_STATUS)
+            ui.popup("Luddites satisfied", "Productivity has returned to normal.")
+        }
     }
 
     this.fire = (id) => {

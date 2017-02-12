@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Industrial Revolution</title>
+    <link rel="stylesheet" type="text/css" href="/node_modules/tooltipster/dist/css/tooltipster.bundle.min.css" />
 </head>
 <body>
     <script id="hireable-person-template" type="text/x-handlebars-template">
@@ -175,6 +176,7 @@
                 <div id="research_sliders">
                     <div id="slider_background"></div>
                     <input id="research_slide_control" type="range" min="1" max="238" step="6" value="97" />
+                    <span id="research_money_proportion_label">4.08% of balance</span>
                 </div>
                 <div id="research_tech_tree">TECH TREE</div>
                 <div class="scrollable" id="completed_research_table">
@@ -215,6 +217,13 @@
                     <h2>Grants</h2>
                 </div>
                 <div class="clear"></div>
+            </div>
+
+            <div id="statuses">
+                <div class="status tooltip-hover" id="LUDDITE_STATUSstatus" data-tooltip-content="Productivity is decreased. Respond to their demands or crush the rebellion to return productivity to normal.">
+                    <img id="ludditestatus" src="/assets/statuses/luddite.png" />
+                    <div>Luddite Revolt</div>
+                </div>
             </div>
         </div>
     </div>
