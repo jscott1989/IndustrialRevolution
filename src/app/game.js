@@ -55,6 +55,7 @@ export const Game = () => {
     var research_web = {};
     var researchCompleted = [];
     var research_points = 0;
+    var latest_discovery = null;
 
     var money = 1000;
     var prestige = 0;
@@ -109,14 +110,15 @@ export const Game = () => {
                                             research_json[i]["section"], 
                                             cost, 
                                             research_json[i]["date"], 
-                                            0, 
-                                            0, 
+                                            research_json[i]["prestigevalue"], // prestige
+                                            research_json[i]["currencyvalue"], // finance
                                             0, 
                                             prerequisites);
             research_web[research.id] = research;
             if(research.id == 1) {
                 researchCompleted.push(research);
                 research.completed = true;
+                latest_discovery = research;
             }
         }
         
@@ -173,20 +175,29 @@ export const Game = () => {
             }
         }
 
+        var discovery = false;
         // process research points distribution
         for(var i=0; i < next.length; i++) {
             var research = next[i];
             var price = Math.min((research_points/next.length), research_points);
-            research.progress = research.progress + price;
-            research_points = research_points - price;
+            //research.progress = research.progress + price;
+            //research_points = research_points - price;
+
+            // check for discovery
             if(research.progress >= research.cost) {
                 console.log("DISCOVERY");
+                discovery = true;
                 research.completed = true;
                 researchCompleted.push(research);
+
+                latest_discovery = research;
 
                 ui.popup("New discovery "+research.name, research.description);
             }
         }
+
+        if(discovery)
+            researchTab.update(researchCompleted);
 
         //console.log("POSSIBLY NEXT DISCOVERED");
         //console.log(next);
@@ -196,7 +207,6 @@ export const Game = () => {
         
             researchCompleted.push(random_research);
         }*/
-        researchTab.update(researchCompleted);
     }
 
     /**
