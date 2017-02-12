@@ -3,7 +3,7 @@
     height: 768px;
     margin:auto;
     /*background:green;*/
-    background-image: url("/assets/background/granite.jpg");
+    background-image: url("/assets/background/wood.jpg");
 }
 
 #newsfeed {
@@ -49,6 +49,7 @@
 #time {
     padding-top: 10px;
     text-align: center;
+    color: #fff;
 }
 
 #timecontrols {
@@ -449,4 +450,6 @@ p{
   border-left: 2px solid #2f2f2f;
 }
 
-
+.stats {
+    color: #FFF;
+}
