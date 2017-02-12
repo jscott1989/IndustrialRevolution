@@ -20,6 +20,6 @@ export function Research(id, name, description, cost, optimal_year, prestige_val
     return this
 }
 
-export const generateResearch = () => {
+/*export const generateResearch = () => {
     return new Research(uuid.v4(), "Invention", "This is clever", 100, 1780, 7, 1000000, 0.5, [1,2,3])
-}
+}*/

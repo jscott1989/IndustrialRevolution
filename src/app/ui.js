@@ -2,6 +2,7 @@ import $ from "jQuery"
 import { game } from "./main"
 import { NORMAL_SPEED, FAST_SPEED } from "./game"
 import * as staffTab from './tabs/staff';
+import * as researchTab from './tabs/research';
 
 // UI State
 var activeTab = "news";
@@ -44,6 +45,7 @@ export const bind = () => {
     });
 
     staffTab.bind()
+    researchTab.bind()
 }
 
 
