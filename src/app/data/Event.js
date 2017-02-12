@@ -33,27 +33,28 @@ function disputeEvent(game, date) {
         var deadline = date.clone()
         deadline.add(1, 'day')
         var f = (game, date) => {
-            alert("CHECK")
+
             if (Math.random() > 0.95) {
                 ui.popup("End of dispute", rest_staff.join(", ") + " and " + staffB.name + " have resolved their differences.")
                 game.unsetStatus(DISPUTE_STATUS)
-            } else if (game.getHiredStaff().length > disputing_staff.length && Math.random() > 0.4) {
-                disputing_staff.push(new_staff);
-                game.setDisputingStaff(disputing_staff)
-                ui.popup(
-                    new_staff.name + " joins the dispute",
-                    new_staff + " has joined the dispute between " + rest_staff.join(", ") + " and " + staffB.name + ". You must resolve this or face further unrest."
-                )
-                rest_staff.push(new_staff)
             } else {
+                if (game.getHiredStaff().length > disputing_staff.length && Math.random() > 0.4) {
+                    var new_staff = _.shuffle(_.filter(game.getHiredStaff(), (x) => !(_.includes(disputing_staff, x))))[0]
+                    disputing_staff.push(new_staff);
+                    game.setDisputingStaff(disputing_staff)
+                    ui.popup(
+                        new_staff.name + " joins the dispute",
+                        new_staff.name + " has joined the dispute between " + rest_staff.join(", ") + " and " + staffB.name + ". You must resolve this or face further unrest."
+                    )
+                    rest_staff.push(new_staff)
+                }
                 var deadline = date.clone()
                 deadline.add(1, 'day')
-                alert(deadline)
+
                 scheduled_events.push([deadline, f])
             }
         }
         scheduled_events.push([deadline, f])
-        game.setStatus(DISPUTE_STATUS)
         ui.popup(
             "Dispute between " + rest_staff.join(", ") + " and " + staffB.name,
             "There has been a dispute at work between " + rest_staff.join(", ") + " and " + staffB.name + ". You must resolve this or face further unrest."
@@ -74,15 +75,16 @@ function moleEvent(game, date) {
 }
 
 function warEvent(game, date) {
-    game.setStatus(LUDDITE_STATUS)
+    game.setStatus(WAR_STATUS)
     var deadline = date.clone()
     deadline.add(1, 'month')
-    var f = (game, data) => {
+    var f = (game, date) => {
+        alert("war")
         if (Math.random() > 0.2) {
             ui.popup("War is over", "Military investment returns to normal.")
             game.unsetStatus(WAR_STATUS)
         } else {
-            var deadline = data.clone()
+            var deadline = date.clone()
             deadline.add(1, 'month')
             scheduled_events.push([deadline, f])
         }
@@ -91,7 +93,7 @@ function warEvent(game, date) {
     game.setStatus(WAR_STATUS)
     ui.popup(
         "War!",
-        "Naopleonic Wars demand large industrial output. There will be increased investment in the military sector."
+        "Napoleonic Wars demand large industrial output. There will be increased investment in the military sector."
     )
 }
 
@@ -104,14 +106,13 @@ var done = false;
 
 export const selectEvent = (game, date) => {
     // First check for scheduled events
-    console.log(scheduled_events)
-    scheduled_events = _.filter(scheduled_events, (x) => {
+    _.each(scheduled_events, (x) => {
         if (x[0].isSame(date, 'day')) {
             x[1](game, date)
-            return false
         }
-        return true
     })
+
+    scheduled_events = _.filter(scheduled_events, (x) => x[0].isAfter(date))
 
     // 1 in 50 chance of an event happening
     // if (Math.random() < 0.02) {

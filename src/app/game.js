@@ -3,6 +3,7 @@ const _ = require('lodash')
 
 export const LUDDITE_STATUS = "LUDDITE_STATUS"
 export const WAR_STATUS = "WAR_STATUS"
+export const DISPUTE_STATUS = "DISPUTE_STATUS"
 
 
 export const MAX_AGE = 45
@@ -339,6 +340,13 @@ export const Game = () => {
     this.fire = (id) => {
         hiredStaff = _.filter(hiredStaff, (a) => a.id != id);
         staffTab.update(availableToHire, hiredStaff)
+        if (this.statusSet(DISPUTE_STATUS)) {
+            disputing_staff = _.filter(disputing_staff, (x) => _.includes(hiredStaff, x))
+            if (disputing_staff.length <= 1) {
+                ui.popup("End of dispute", "The dispute has been resolved. Productivity returns to normal.")
+                this.unsetStatus(DISPUTE_STATUS)
+            }
+        }
     }
 
     this.churnstaff = () => {
