@@ -99,7 +99,19 @@ export const Game = () => {
                 }
             }
 
-            var research = new Research(research_json[i]["id"], research_json[i]["officialTitle"], research_json[i]["overview"], research_json[i]["section"], 0, research_json[i]["date"], 0, 0, 0, prerequisites);
+            var currencyMap = {'Low': 250, 'Medium': 500, 'High': 1000};
+            var cost = currencyMap[research_json[i]["currencyvalue"]];
+
+            var research = new Research(    research_json[i]["id"], 
+                                            research_json[i]["officialTitle"], 
+                                            research_json[i]["overview"], 
+                                            research_json[i]["section"], 
+                                            cost, 
+                                            research_json[i]["date"], 
+                                            0, 
+                                            0, 
+                                            0, 
+                                            prerequisites);
             research_web[research.id] = research;
             if(research.id == 1) {
                 researchCompleted.push(research);
@@ -129,7 +141,7 @@ export const Game = () => {
             research_points += money * (funding / 100)
         }
 
-        console.log(research_points);
+        console.log("RP:"+research_points);
 
         /*
             if(funded_points >= currentResearch.cost){
@@ -138,10 +150,10 @@ export const Game = () => {
         */
 
 
-        console.log("ARGH!")
+        //console.log("ARGH!")
         var next = [];
         for(var id in research_web) {
-            console.log("ID: "+id);
+            //console.log("ID: "+id);
             var research = research_web[id];
             if(!research.completed) {
                 // if prerequisites are empty, possibly discover this
@@ -159,14 +171,30 @@ export const Game = () => {
                 }
             }
         }
-        console.log("POSSIBLY NEXT DISCOVERED");
-        console.log(next);
-        var random_research = next[Math.floor(Math.random() * next.length)];
-        if(random_research != null)
+
+        // process research points distribution
+        for(var i=0; i < next.length; i++) {
+            var research = next[i];
+            var price = Math.min((research_points/next.length), research_points);
+            research.progress = research.progress + price;
+            research_points = research_points - price;
+            if(research.progress >= research.cost) {
+                console.log("DISCOVERY");
+                research.completed = true;
+                researchCompleted.push(research);
+
+                ui.popup("New discovery "+research.name, research.description);
+            }
+        }
+
+        //console.log("POSSIBLY NEXT DISCOVERED");
+        //console.log(next);
+        /*var random_research = next[Math.floor(Math.random() * next.length)];
+        if(random_research != null) {
             random_research.completed = true;
-
-        researchCompleted.push(random_research);
-
+        
+            researchCompleted.push(random_research);
+        }*/
         researchTab.update(researchCompleted);
     }
 

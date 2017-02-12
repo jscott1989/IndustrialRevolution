@@ -79,7 +79,7 @@ const update_tabs = () => {
 
 export const update_stats = (age, money, prestige) => {
     $('#age').html(age)
-    $('#money').html('$' + money)
+    $('#money').html('$' + Math.round(money * 100)/100)
     $('#prestige').text(prestige)
 }
 

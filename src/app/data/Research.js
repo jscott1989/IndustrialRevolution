@@ -18,6 +18,8 @@ export function Research(id, name, description, section, cost, optimal_year, pre
     this.start_x = x
     this.start_y = y
 
+    this.progress = 0
+
     return this
 }
 
